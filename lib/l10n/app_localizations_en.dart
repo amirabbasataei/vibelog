@@ -134,4 +134,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get boredomOverTime => 'Boredom Over Time';
+
+  @override
+  String get graphInsights => 'Insights';
+
+  @override
+  String get graph7d => '7D';
+
+  @override
+  String get graph30d => '30D';
+
+  @override
+  String get graphAll => 'All';
+
+  @override
+  String get graphAvgScore => 'avg score';
 }

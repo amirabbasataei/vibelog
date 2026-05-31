@@ -41,5 +41,10 @@
   "entryDeleted": "Entry deleted",
   "moodOverTime": "Mood Over Time",
   "energyOverTime": "Energy Over Time",
-  "boredomOverTime": "Boredom Over Time"
+  "boredomOverTime": "Boredom Over Time",
+  "graphInsights": "Insights",
+  "graph7d": "7D",
+  "graph30d": "30D",
+  "graphAll": "All",
+  "graphAvgScore": "avg score"
 }

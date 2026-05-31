@@ -41,5 +41,10 @@
   "entryDeleted": "یادداشت حذف شد",
   "moodOverTime": "تغییرات حال",
   "energyOverTime": "تغییرات انرژی",
-  "boredomOverTime": "تغییرات بی‌حوصلگی"
+  "boredomOverTime": "تغییرات بی‌حوصلگی",
+  "graphInsights": "بینش‌ها",
+  "graph7d": "۷ روز",
+  "graph30d": "۳۰ روز",
+  "graphAll": "همه",
+  "graphAvgScore": "میانگین"
 }

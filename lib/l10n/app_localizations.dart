@@ -349,6 +349,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Boredom Over Time'**
   String get boredomOverTime;
+
+  /// No description provided for @graphInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get graphInsights;
+
+  /// No description provided for @graph7d.
+  ///
+  /// In en, this message translates to:
+  /// **'7D'**
+  String get graph7d;
+
+  /// No description provided for @graph30d.
+  ///
+  /// In en, this message translates to:
+  /// **'30D'**
+  String get graph30d;
+
+  /// No description provided for @graphAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get graphAll;
+
+  /// No description provided for @graphAvgScore.
+  ///
+  /// In en, this message translates to:
+  /// **'avg score'**
+  String get graphAvgScore;
 }
 
 class _AppLocalizationsDelegate

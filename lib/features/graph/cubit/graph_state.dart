@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import '../../../shared/models/mood_entry.dart';
 
+enum GraphFilter { sevenDays, thirtyDays, all }
+
 sealed class GraphState extends Equatable {
   const GraphState();
   @override
@@ -16,10 +18,11 @@ class GraphLoading extends GraphState {
 }
 
 class GraphLoaded extends GraphState {
-  const GraphLoaded(this.entries);
+  const GraphLoaded(this.entries, this.filter);
   final List<MoodEntry> entries;
+  final GraphFilter filter;
   @override
-  List<Object?> get props => [entries];
+  List<Object?> get props => [entries, filter];
 }
 
 class GraphError extends GraphState {

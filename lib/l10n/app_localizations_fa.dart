@@ -135,4 +135,19 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get boredomOverTime => 'تغییرات بی‌حوصلگی';
+
+  @override
+  String get graphInsights => 'بینش‌ها';
+
+  @override
+  String get graph7d => '۷ روز';
+
+  @override
+  String get graph30d => '۳۰ روز';
+
+  @override
+  String get graphAll => 'همه';
+
+  @override
+  String get graphAvgScore => 'میانگین';
 }
