@@ -93,10 +93,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get retry => 'Retry';
 
   @override
+  String get settingsAppearanceSection => 'APPEARANCE';
+
+  @override
+  String get settingsTrackingSection => 'TRACKING';
+
+  @override
+  String get settingsLanguageSection => 'LANGUAGE';
+
+  @override
+  String get settingsDataSection => 'DATA';
+
+  @override
   String get settingsScaleTitle => 'Score Scale';
 
   @override
+  String get settingsScaleSubtitle => 'Range for all three metrics';
+
+  @override
+  String get settingsScaleOption5 => '0–5';
+
+  @override
+  String get settingsScaleOption10 => '0–10';
+
+  @override
   String get settingsThemeTitle => 'Theme';
+
+  @override
+  String get settingsThemeSubtitle => 'App appearance';
 
   @override
   String get settingsThemeLight => 'Light';
@@ -105,7 +129,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsThemeDark => 'Dark';
 
   @override
-  String get settingsThemeSystem => 'System';
+  String get settingsThemeSystem => 'Auto';
+
+  @override
+  String get settingsLanguageTitle => 'Language';
+
+  @override
+  String get settingsLanguageSubtitle => 'App display language';
+
+  @override
+  String get settingsLanguageEn => 'English';
+
+  @override
+  String get settingsLanguageFa => 'فارسی';
 
   @override
   String get settingsDangerZone => 'Danger Zone';
@@ -122,6 +158,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAllConfirm => 'Delete';
+
+  @override
+  String get appVersion => 'vibelog v1.0.0';
 
   @override
   String get entryDeleted => 'Entry deleted';

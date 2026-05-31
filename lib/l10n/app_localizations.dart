@@ -266,17 +266,65 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get retry;
 
+  /// No description provided for @settingsAppearanceSection.
+  ///
+  /// In en, this message translates to:
+  /// **'APPEARANCE'**
+  String get settingsAppearanceSection;
+
+  /// No description provided for @settingsTrackingSection.
+  ///
+  /// In en, this message translates to:
+  /// **'TRACKING'**
+  String get settingsTrackingSection;
+
+  /// No description provided for @settingsLanguageSection.
+  ///
+  /// In en, this message translates to:
+  /// **'LANGUAGE'**
+  String get settingsLanguageSection;
+
+  /// No description provided for @settingsDataSection.
+  ///
+  /// In en, this message translates to:
+  /// **'DATA'**
+  String get settingsDataSection;
+
   /// No description provided for @settingsScaleTitle.
   ///
   /// In en, this message translates to:
   /// **'Score Scale'**
   String get settingsScaleTitle;
 
+  /// No description provided for @settingsScaleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Range for all three metrics'**
+  String get settingsScaleSubtitle;
+
+  /// No description provided for @settingsScaleOption5.
+  ///
+  /// In en, this message translates to:
+  /// **'0–5'**
+  String get settingsScaleOption5;
+
+  /// No description provided for @settingsScaleOption10.
+  ///
+  /// In en, this message translates to:
+  /// **'0–10'**
+  String get settingsScaleOption10;
+
   /// No description provided for @settingsThemeTitle.
   ///
   /// In en, this message translates to:
   /// **'Theme'**
   String get settingsThemeTitle;
+
+  /// No description provided for @settingsThemeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App appearance'**
+  String get settingsThemeSubtitle;
 
   /// No description provided for @settingsThemeLight.
   ///
@@ -293,8 +341,32 @@ abstract class AppLocalizations {
   /// No description provided for @settingsThemeSystem.
   ///
   /// In en, this message translates to:
-  /// **'System'**
+  /// **'Auto'**
   String get settingsThemeSystem;
+
+  /// No description provided for @settingsLanguageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguageTitle;
+
+  /// No description provided for @settingsLanguageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App display language'**
+  String get settingsLanguageSubtitle;
+
+  /// No description provided for @settingsLanguageEn.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settingsLanguageEn;
+
+  /// No description provided for @settingsLanguageFa.
+  ///
+  /// In en, this message translates to:
+  /// **'فارسی'**
+  String get settingsLanguageFa;
 
   /// No description provided for @settingsDangerZone.
   ///
@@ -325,6 +397,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get deleteAllConfirm;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'vibelog v1.0.0'**
+  String get appVersion;
 
   /// No description provided for @entryDeleted.
   ///

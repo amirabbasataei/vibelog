@@ -94,10 +94,34 @@ class AppLocalizationsFa extends AppLocalizations {
   String get retry => 'تلاش دوباره';
 
   @override
+  String get settingsAppearanceSection => 'ظاهر';
+
+  @override
+  String get settingsTrackingSection => 'ردیابی';
+
+  @override
+  String get settingsLanguageSection => 'زبان';
+
+  @override
+  String get settingsDataSection => 'داده';
+
+  @override
   String get settingsScaleTitle => 'محدوده امتیاز';
 
   @override
+  String get settingsScaleSubtitle => 'محدوده هر سه معیار';
+
+  @override
+  String get settingsScaleOption5 => '۰–۵';
+
+  @override
+  String get settingsScaleOption10 => '۰–۱۰';
+
+  @override
   String get settingsThemeTitle => 'پوسته';
+
+  @override
+  String get settingsThemeSubtitle => 'ظاهر برنامه';
 
   @override
   String get settingsThemeLight => 'روشن';
@@ -106,7 +130,19 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsThemeDark => 'تاریک';
 
   @override
-  String get settingsThemeSystem => 'سیستم';
+  String get settingsThemeSystem => 'خودکار';
+
+  @override
+  String get settingsLanguageTitle => 'زبان';
+
+  @override
+  String get settingsLanguageSubtitle => 'زبان نمایش برنامه';
+
+  @override
+  String get settingsLanguageEn => 'English';
+
+  @override
+  String get settingsLanguageFa => 'فارسی';
 
   @override
   String get settingsDangerZone => 'منطقه خطر';
@@ -123,6 +159,9 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get deleteAllConfirm => 'حذف';
+
+  @override
+  String get appVersion => 'وایب‌لاگ v1.0.0';
 
   @override
   String get entryDeleted => 'یادداشت حذف شد';
