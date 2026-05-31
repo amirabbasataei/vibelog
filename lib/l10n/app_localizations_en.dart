@@ -27,6 +27,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editEntry => 'Edit Entry';
 
   @override
+  String get newEntry => 'New Entry';
+
+  @override
+  String get saveEntry => 'Save Entry';
+
+  @override
+  String get dateAndTimeLabel => 'Date & Time';
+
+  @override
   String get save => 'Save';
 
   @override
@@ -55,6 +64,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timeLabel => 'Time';
+
+  @override
+  String get todayAvgLabel => 'Today\'s Avg';
+
+  @override
+  String get dayStreakLabel => 'day streak';
+
+  @override
+  String get entriesLabel => 'entries';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get yesterday => 'Yesterday';
 
   @override
   String get emptyNotes => 'No entries yet.\nTap + to add your first entry.';

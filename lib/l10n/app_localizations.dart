@@ -134,6 +134,24 @@ abstract class AppLocalizations {
   /// **'Edit Entry'**
   String get editEntry;
 
+  /// No description provided for @newEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'New Entry'**
+  String get newEntry;
+
+  /// No description provided for @saveEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Entry'**
+  String get saveEntry;
+
+  /// No description provided for @dateAndTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get dateAndTimeLabel;
+
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
@@ -193,6 +211,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time'**
   String get timeLabel;
+
+  /// No description provided for @todayAvgLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Avg'**
+  String get todayAvgLabel;
+
+  /// No description provided for @dayStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'day streak'**
+  String get dayStreakLabel;
+
+  /// No description provided for @entriesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'entries'**
+  String get entriesLabel;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @yesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
 
   /// No description provided for @emptyNotes.
   ///

@@ -28,4 +28,7 @@ class MoodEntriesDao extends DatabaseAccessor<AppDatabase>
       (delete(moodEntries)..where((t) => t.id.equals(id))).go();
 
   Future<void> deleteAllEntries() => delete(moodEntries).go();
+
+  Future<MoodEntry?> getEntryById(int id) =>
+      (select(moodEntries)..where((t) => t.id.equals(id))).getSingleOrNull();
 }

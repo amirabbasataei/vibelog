@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vibelog/l10n/app_localizations.dart';
+
+import '../../l10n/app_localizations.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.child});
@@ -32,15 +33,18 @@ class AppShell extends StatelessWidget {
         },
         destinations: [
           NavigationDestination(
-            icon: const Icon(Icons.notes),
+            icon: const Icon(Icons.article_outlined),
+            selectedIcon: const Icon(Icons.article),
             label: l10n.tabNotes,
           ),
           NavigationDestination(
             icon: const Icon(Icons.show_chart),
+            selectedIcon: const Icon(Icons.show_chart),
             label: l10n.tabGraph,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.tune_outlined),
+            selectedIcon: const Icon(Icons.tune),
             label: l10n.tabSettings,
           ),
         ],

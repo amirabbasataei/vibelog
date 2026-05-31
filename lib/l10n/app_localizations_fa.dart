@@ -27,6 +27,15 @@ class AppLocalizationsFa extends AppLocalizations {
   String get editEntry => 'ویرایش یادداشت';
 
   @override
+  String get newEntry => 'یادداشت جدید';
+
+  @override
+  String get saveEntry => 'ذخیره یادداشت';
+
+  @override
+  String get dateAndTimeLabel => 'تاریخ و ساعت';
+
+  @override
   String get save => 'ذخیره';
 
   @override
@@ -55,6 +64,21 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get timeLabel => 'ساعت';
+
+  @override
+  String get todayAvgLabel => 'میانگین امروز';
+
+  @override
+  String get dayStreakLabel => 'روز متوالی';
+
+  @override
+  String get entriesLabel => 'یادداشت';
+
+  @override
+  String get today => 'امروز';
+
+  @override
+  String get yesterday => 'دیروز';
 
   @override
   String get emptyNotes =>
