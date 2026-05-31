@@ -1,19 +1,49 @@
 name: vibelog
-description: "A new Flutter project."
+description: Mood tracking app for people with mood swings.
 publish_to: 'none'
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
-  sdk: ^3.11.5
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+
+  # Navigation
+  go_router: ^14.3.0
+
+  # Dependency injection
+  get_it: ^7.7.0
+
+  # Database
+  drift: ^2.21.0
+  sqlite3_flutter_libs: ^0.5.24
+  path_provider: ^2.1.4
+  path: ^1.9.0
+
+  # Charts
+  fl_chart: ^0.69.0
+
+  # Date/time
+  intl: ^0.20.2
+
+  # Settings persistence
+  shared_preferences: ^2.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ^4.0.0
+  drift_dev: ^2.21.0
+  build_runner: ^2.4.13
 
 flutter:
+  generate: true
   uses-material-design: true

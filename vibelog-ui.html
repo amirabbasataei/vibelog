@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vibelog — UI/UX Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+button { cursor: pointer; font: inherit; border: none; background: none; }
+textarea, input { font: inherit; }
+
+/* ─────────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────────── */
+:root {
+  /* App palette */
+  --bg:       #08081A;
+  --surface:  #0F0F26;
+  --card:     #141428;
+  --card2:    #1C1C38;
+  --overlay:  rgba(8,8,26,0.85);
+
+  /* Brand */
+  --mood:       #A78BFA;
+  --mood-dim:   rgba(167,139,250,0.13);
+  --mood-glow:  rgba(167,139,250,0.3);
+  --energy:     #FBBF24;
+  --energy-dim: rgba(251,191,36,0.13);
+  --boredom:    #34D399;
+  --boredom-dim:rgba(52,211,153,0.13);
+
+  /* Semantic */
+  --low:   #F87171;
+  --mid:   #FBBF24;
+  --high:  #34D399;
+
+  /* Text */
+  --t1: #EEEEF9;
+  --t2: #8888B4;
+  --t3: #4A4A72;
+
+  /* Borders */
+  --b1: rgba(167,139,250,0.09);
+  --b2: rgba(255,255,255,0.055);
+
+  /* Radii */
+  --r-xl: 24px;
+  --r-lg: 18px;
+  --r-md: 14px;
+  --r-sm: 10px;
+  --r-xs: 7px;
+}
+
+/* ─────────────────────────────────────────────
+   DEMO PAGE
+───────────────────────────────────────────── */
+body {
+  min-height: 100vh;
+  background: #04040E;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 24px 64px;
+  gap: 32px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grid lines overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Radial glow behind phone */
+body::after {
+  content: '';
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(120,80,255,0.07) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────────
+   DEMO HEADER
+───────────────────────────────────────────── */
+.demo-header {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-logo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  background: linear-gradient(135deg, #A78BFA 0%, #F472B6 55%, #FBBF24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.demo-tag {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+/* ─────────────────────────────────────────────
+   SCREEN SWITCHER
+───────────────────────────────────────────── */
+.switcher {
+  display: flex;
+  gap: 6px;
+  background: rgba(255,255,255,0.028);
+  border: 1px solid var(--b1);
+  border-radius: 100px;
+  padding: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.sw-btn {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 22px;
+  border-radius: 100px;
+  color: var(--t3);
+  transition: all 0.22s ease;
+  letter-spacing: 0.2px;
+}
+
+.sw-btn:hover:not(.active) { color: var(--t2); background: rgba(255,255,255,0.04); }
+
+.sw-btn.active {
+  background: linear-gradient(135deg, #A78BFA, #7C5CF5);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(140,95,245,0.4);
+}
+
+/* ─────────────────────────────────────────────
+   PHONE SHELL
+───────────────────────────────────────────── */
+.phone-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* Side buttons (decorative) */
+.phone-wrap::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: 140px;
+  width: 4px;
+  height: 36px;
+  background: linear-gradient(to right, #181830, #242448);
+  border-radius: 3px 0 0 3px;
+  box-shadow: 0 48px 0 #181830, 0 96px 0 #181830;
+}
+
+.phone-wrap::after {
+  content: '';
+  position: absolute;
+  right: -4px; top: 190px;
+  width: 4px;
+  height: 68px;
+  background: linear-gradient(to left, #181830, #242448);
+  border-radius: 0 3px 3px 0;
+}
+
+.phone {
+  width: 393px;
+  height: 852px;
+  border-radius: 54px;
+  border: 1.5px solid rgba(255,255,255,0.13);
+  background: #080815;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.9),
+    0 50px 100px rgba(0,0,0,0.8),
+    0 20px 60px rgba(0,0,0,0.5),
+    0 0 120px rgba(120,80,255,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+/* Dynamic Island */
+.island {
+  position: absolute;
+  top: 14px; left: 50%;
+  transform: translateX(-50%);
+  width: 126px; height: 36px;
+  background: #000;
+  border-radius: 100px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 14px;
+  gap: 7px;
+}
+
+.island-cam {
+  width: 13px; height: 13px;
+  background: #111;
+  border-radius: 50%;
+  border: 1.5px solid #1a1a1a;
+}
+
+.island-cam::after {
+  content: '';
+  display: block;
+  width: 5px; height: 5px;
+  background: #0a0a14;
+  border-radius: 50%;
+  margin: 3px auto 0;
+}
+
+/* Status bar */
+.status {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 30px 9px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.status-time {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--t1);
+  letter-spacing: 0.2px;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Signal bars */
+.sig {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 13px;
+}
+.sig-bar {
+  width: 3px;
+  border-radius: 1.5px;
+  background: var(--t1);
+}
+
+/* Wifi */
+.wifi {
+  width: 16px; height: 12px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Battery */
+.batt {
+  display: flex;
+  align-items: center;
+  gap: 1.5px;
+}
+.batt-body {
+  width: 24px; height: 12px;
+  border: 1.5px solid var(--t1);
+  border-radius: 3px;
+  padding: 2px 2px;
+}
+.batt-fill {
+  height: 100%;
+  width: 72%;
+  background: var(--t1);
+  border-radius: 1px;
+}
+.batt-tip {
+  width: 2.5px; height: 6px;
+  background: var(--t1);
+  border-radius: 0 1.5px 1.5px 0;
+}
+
+/* ─────────────────────────────────────────────
+   SCREEN LAYER
+───────────────────────────────────────────── */
+.phone-screens {
+  position: absolute;
+  inset: 0;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: 56px;
+  overflow: hidden;
+}
+
+.screen.active { display: flex; }
+
+/* ─────────────────────────────────────────────
+   BOTTOM NAV
+───────────────────────────────────────────── */
+.bnav {
+  flex-shrink: 0;
+  height: 86px;
+  background: rgba(10,10,25,0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--b1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 10px 0 0;
+}
+
+.bnav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.bnav-pill {
+  width: 56px; height: 32px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+}
+
+.bnav-item.on .bnav-pill { background: var(--mood-dim); }
+
+.bnav-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--t3);
+  transition: color 0.25s;
+}
+
+.bnav-item.on .bnav-label { color: var(--mood); }
+
+.bnav-icon { width: 22px; height: 22px; }
+
+/* ─────────────────────────────────────────────
+   SCROLL WRAPPER
+───────────────────────────────────────────── */
+.scroller {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.scroller::-webkit-scrollbar { display: none; }
+
+/* ─────────────────────────────────────────────
+   NOTES SCREEN
+───────────────────────────────────────────── */
+#s-notes {
+  position: relative;
+}
+
+.n-header {
+  padding: 14px 24px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.n-logo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #A78BFA, #F472B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.n-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #A78BFA, #7C5CF5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+/* Streak pill */
+.streak-row {
+  padding: 0 24px 14px;
+  flex-shrink: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.streak-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: 100px;
+  padding: 6px 14px 6px 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--t2);
+}
+
+.streak-icon { font-size: 14px; line-height: 1; }
+
+/* Today avg bar */
+.avg-bar {
+  margin: 0 20px 16px;
+  flex-shrink: 0;
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.avg-bar-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--t3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.avg-scores {
+  display: flex;
+  gap: 18px;
+}
+
+.avg-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.avg-val {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.avg-lbl {
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  color: var(--t3);
+  font-weight: 600;
+}
+
+/* Date divider */
+.date-sep {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--t3);
+  padding: 10px 24px 6px;
+}
+
+/* Entry cards */
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 0 16px;
+}
+
+.ecard {
+  display: flex;
+  border-radius: var(--r-lg);
+  background: var(--card);
+  border: 1px solid var(--b1);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.ecard-bar {
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.ecard-body {
+  flex: 1;
+  padding: 11px 13px;
+}
+
+.ecard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.ecard-time {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--t2);
+  letter-spacing: 0.3px;
+}
+
+.ecard-mood-ico { font-size: 15px; line-height: 1; }
+
+.ecard-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13.5px;
+  color: var(--t1);
+  line-height: 1.48;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 9px;
+  font-weight: 400;
+}
+
+.ecard-chips {
+  display: flex;
+  gap: 5px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 100px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chip-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.c-mood    { background: var(--mood-dim);    color: var(--mood);    }
+.c-energy  { background: var(--energy-dim);  color: var(--energy);  }
+.c-boredom { background: var(--boredom-dim); color: var(--boredom); }
+.d-mood    { background: var(--mood);    }
+.d-energy  { background: var(--energy);  }
+.d-boredom { background: var(--boredom); }
+
+/* FAB */
+.fab {
+  position: absolute;
+  bottom: 100px;
+  right: 20px;
+  width: 58px; height: 58px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #A78BFA, #7C5CF5);
+  box-shadow: 0 8px 28px rgba(124,92,245,0.5), 0 2px 8px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  font-family: 'Nunito', sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  color: white;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   ADD ENTRY SCREEN
+───────────────────────────────────────────── */
+#s-add {
+  background: var(--bg);
+}
+
+.add-header {
+  padding: 14px 24px 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.back-btn {
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--b1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.add-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+.add-form {
+  padding: 4px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Datetime row */
+.dt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+}
+
+.dt-left { display: flex; flex-direction: column; gap: 2px; }
+
+.dt-lbl {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--t3);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.dt-val {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.dt-edit {
+  width: 32px; height: 32px;
+  background: var(--mood-dim);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Textarea */
+.desc-area {
+  width: 100%;
+  min-height: 108px;
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  padding: 14px 15px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--t1);
+  resize: none;
+  outline: none;
+  line-height: 1.6;
+  caret-color: var(--mood);
+}
+
+.desc-area::placeholder { color: var(--t3); }
+.desc-area:focus { border-color: rgba(167,139,250,0.25); }
+
+/* Scores */
+.score-head {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--t3);
+  padding: 0 2px;
+}
+
+.score-card {
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  padding: 14px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.score-row {
+  padding: 11px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.score-row + .score-row {
+  border-top: 1px solid var(--b2);
+}
+
+.score-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.score-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-ndot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.score-ntext {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.score-numval {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Custom slider track */
+.slider-track {
+  position: relative;
+  height: 7px;
+  cursor: pointer;
+}
+
+.slider-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  background: var(--b2);
+  overflow: visible;
+}
+
+.slider-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  border-radius: 100px;
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+/* Save button */
+.save-btn {
+  height: 54px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(135deg, #A78BFA, #7C5CF5);
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 28px rgba(124,92,245,0.4);
+  margin-bottom: 28px;
+  margin-top: 4px;
+}
+
+/* ─────────────────────────────────────────────
+   GRAPH SCREEN
+───────────────────────────────────────────── */
+#s-graph { background: var(--bg); }
+
+.g-header {
+  padding: 14px 24px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.g-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: -0.5px;
+}
+
+.g-filter {
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: 100px;
+  padding: 3px;
+  gap: 0;
+}
+
+.gf-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 100px;
+  color: var(--t3);
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.gf-btn.on {
+  background: var(--mood);
+  color: white;
+}
+
+.chart-wrap {
+  padding: 0 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top accent line */
+.chart-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 40px; right: 40px;
+  height: 1px;
+  border-radius: 1px;
+}
+
+.chart-card.mood-card::before  { background: linear-gradient(90deg, transparent, rgba(167,139,250,0.5), transparent); }
+.chart-card.enrg-card::before  { background: linear-gradient(90deg, transparent, rgba(251,191,36,0.5), transparent); }
+.chart-card.brdm-card::before  { background: linear-gradient(90deg, transparent, rgba(52,211,153,0.5), transparent); }
+
+.chart-head {
+  padding: 13px 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chart-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+.chart-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+}
+
+.chart-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.chart-stat-val {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.chart-stat-lbl {
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  color: var(--t3);
+  font-weight: 600;
+}
+
+.chart-svg-box {
+  width: 100%;
+  height: 96px;
+  position: relative;
+}
+
+.chart-svg-box svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-axis {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 14px 12px;
+}
+
+.axis-lbl {
+  font-family: 'Nunito', sans-serif;
+  font-size: 9.5px;
+  color: var(--t3);
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────────
+   SETTINGS SCREEN
+───────────────────────────────────────────── */
+#s-settings { background: var(--bg); }
+
+.st-header {
+  padding: 14px 24px 14px;
+  flex-shrink: 0;
+}
+
+.st-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: -0.5px;
+}
+
+.st-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.st-scroll::-webkit-scrollbar { display: none; }
+
+.st-section {
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.st-sec-lbl {
+  font-family: 'Nunito', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--t3);
+  padding: 12px 16px 4px;
+}
+
+.st-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-top: 1px solid var(--b2);
+}
+
+.st-item:first-of-type { border-top: none; }
+
+.st-item-l {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.st-icon {
+  width: 34px; height: 34px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.st-item-txt { display: flex; flex-direction: column; gap: 1px; }
+
+.st-item-name {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.st-item-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11.5px;
+  color: var(--t3);
+  font-weight: 400;
+}
+
+/* Segmented */
+.seg {
+  display: flex;
+  background: rgba(255,255,255,0.05);
+  border-radius: 9px;
+  padding: 2.5px;
+  gap: 0;
+}
+
+.seg-opt {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 7px;
+  color: var(--t3);
+  transition: all 0.18s;
+}
+
+.seg-opt.on {
+  background: var(--card2);
+  color: var(--t1);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+}
+
+/* Toggle */
+.tog {
+  width: 46px; height: 27px;
+  background: var(--mood);
+  border-radius: 100px;
+  position: relative;
+}
+
+.tog-dot {
+  position: absolute;
+  top: 3px; right: 3px;
+  width: 21px; height: 21px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
+.tog.off {
+  background: var(--b2);
+}
+
+.tog.off .tog-dot {
+  right: auto;
+  left: 3px;
+}
+
+/* Chevron */
+.chev {
+  font-size: 18px;
+  color: var(--t3);
+  font-family: sans-serif;
+  line-height: 1;
+}
+
+/* Danger items */
+.danger-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-top: 1px solid var(--b2);
+  cursor: pointer;
+}
+
+.danger-icon {
+  width: 34px; height: 34px;
+  border-radius: 11px;
+  background: rgba(248,113,113,0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.danger-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #F87171;
+}
+
+.st-ver {
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  color: var(--t3);
+  padding-top: 4px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* ─────────────────────────────────────────────
+   ICON HELPERS
+───────────────────────────────────────────── */
+.ico { width: 18px; height: 18px; flex-shrink: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- ===== DEMO HEADER ===== -->
+<div class="demo-header" style="position:relative;z-index:1;">
+  <div class="demo-logo">vibelog</div>
+  <div class="demo-tag">UI/UX Screen Design</div>
+</div>
+
+<!-- ===== SCREEN SWITCHER ===== -->
+<div class="switcher" style="position:relative;z-index:1;">
+  <button class="sw-btn active" data-s="notes">Notes</button>
+  <button class="sw-btn" data-s="add">Add Entry</button>
+  <button class="sw-btn" data-s="graph">Graph</button>
+  <button class="sw-btn" data-s="settings">Settings</button>
+</div>
+
+<!-- ===== PHONE ===== -->
+<div class="phone-wrap">
+  <div class="phone">
+    <!-- Dynamic Island -->
+    <div class="island"><div class="island-cam"></div></div>
+
+    <!-- Status bar (fixed above all screens) -->
+    <div class="status">
+      <span class="status-time">9:41</span>
+      <div class="status-right">
+        <!-- Signal bars -->
+        <div class="sig">
+          <div class="sig-bar" style="height:4px;opacity:.35;"></div>
+          <div class="sig-bar" style="height:7px;opacity:.55;"></div>
+          <div class="sig-bar" style="height:10px;opacity:.8;"></div>
+          <div class="sig-bar" style="height:13px;"></div>
+        </div>
+        <!-- Wifi (SVG arc) -->
+        <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+          <path d="M1 4.5C3.5 1.8 6.6.3 8 .3s4.5 1.5 7 4.2" stroke="rgba(238,238,249,0.4)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M3.2 6.8C5 5 6.6 4.2 8 4.2s3 .8 4.8 2.6" stroke="rgba(238,238,249,0.7)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M5.4 9.1C6.3 8.1 7.2 7.6 8 7.6s1.7.5 2.6 1.5" stroke="#EEEEF9" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="8" cy="12" r="1.3" fill="#EEEEF9"/>
+        </svg>
+        <!-- Battery -->
+        <div class="batt">
+          <div class="batt-body"><div class="batt-fill"></div></div>
+          <div class="batt-tip"></div>
+        </div>
+      </div>
+    </div><!-- .status -->
+
+    <!-- All screens live inside here -->
+    <div class="phone-screens">
+
+      <!-- ══════════════════════════════════════
+           SCREEN: NOTES
+      ══════════════════════════════════════ -->
+      <div class="screen active" id="s-notes">
+
+        <div class="n-header">
+          <span class="n-logo">vibelog</span>
+          <div class="n-avatar">A</div>
+        </div>
+
+        <div class="streak-row">
+          <div class="streak-pill">
+            <span class="streak-icon">🔥</span>
+            <span>7 day streak</span>
+          </div>
+          <div class="streak-pill">
+            <span class="streak-icon">📝</span>
+            <span>23 entries</span>
+          </div>
+        </div>
+
+        <!-- Today's avg summary -->
+        <div class="avg-bar">
+          <span class="avg-bar-label">Today's avg</span>
+          <div class="avg-scores">
+            <div class="avg-score">
+              <span class="avg-val" style="color:var(--mood)">6.5</span>
+              <span class="avg-lbl">Mood</span>
+            </div>
+            <div class="avg-score">
+              <span class="avg-val" style="color:var(--energy)">5.0</span>
+              <span class="avg-lbl">Energy</span>
+            </div>
+            <div class="avg-score">
+              <span class="avg-val" style="color:var(--boredom)">4.5</span>
+              <span class="avg-lbl">Boredom</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroller">
+          <div class="date-sep">Today</div>
+          <div class="entries">
+
+            <div class="ecard">
+              <div class="ecard-bar" style="background:#34D399;"></div>
+              <div class="ecard-body">
+                <div class="ecard-top">
+                  <span class="ecard-time">2:34 PM</span>
+                  <span class="ecard-mood-ico">😌</span>
+                </div>
+                <div class="ecard-desc">Had a really productive morning working on the new project. Feeling good about where things are headed, though the afternoon slump hit hard.</div>
+                <div class="ecard-chips">
+                  <div class="chip c-mood"><div class="chip-dot d-mood"></div>8</div>
+                  <div class="chip c-energy"><div class="chip-dot d-energy"></div>6</div>
+                  <div class="chip c-boredom"><div class="chip-dot d-boredom"></div>2</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ecard">
+              <div class="ecard-bar" style="background:#FBBF24;"></div>
+              <div class="ecard-body">
+                <div class="ecard-top">
+                  <span class="ecard-time">9:18 AM</span>
+                  <span class="ecard-mood-ico">😶</span>
+                </div>
+                <div class="ecard-desc">Woke up feeling foggy. Couldn't sleep well last night, kept overthinking everything. The coffee helped a bit but not much.</div>
+                <div class="ecard-chips">
+                  <div class="chip c-mood"><div class="chip-dot d-mood"></div>5</div>
+                  <div class="chip c-energy"><div class="chip-dot d-energy"></div>4</div>
+                  <div class="chip c-boredom"><div class="chip-dot d-boredom"></div>7</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="date-sep" style="margin-top:4px;">Yesterday</div>
+          <div class="entries" style="padding-bottom:12px;">
+
+            <div class="ecard">
+              <div class="ecard-bar" style="background:#34D399;"></div>
+              <div class="ecard-body">
+                <div class="ecard-top">
+                  <span class="ecard-time">8:45 PM</span>
+                  <span class="ecard-mood-ico">🙂</span>
+                </div>
+                <div class="ecard-desc">Long day but ended well. Went for a walk in the evening which really helped clear my head. Fresh air does wonders.</div>
+                <div class="ecard-chips">
+                  <div class="chip c-mood"><div class="chip-dot d-mood"></div>7</div>
+                  <div class="chip c-energy"><div class="chip-dot d-energy"></div>5</div>
+                  <div class="chip c-boredom"><div class="chip-dot d-boredom"></div>3</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ecard">
+              <div class="ecard-bar" style="background:#F87171;"></div>
+              <div class="ecard-body">
+                <div class="ecard-top">
+                  <span class="ecard-time">3:12 PM</span>
+                  <span class="ecard-mood-ico">😮‍💨</span>
+                </div>
+                <div class="ecard-desc">Feeling restless and can't focus on anything properly. Every task feels like a mountain. Just want to zone out completely.</div>
+                <div class="ecard-chips">
+                  <div class="chip c-mood"><div class="chip-dot d-mood"></div>3</div>
+                  <div class="chip c-energy"><div class="chip-dot d-energy"></div>7</div>
+                  <div class="chip c-boredom"><div class="chip-dot d-boredom"></div>9</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ecard">
+              <div class="ecard-bar" style="background:#34D399;"></div>
+              <div class="ecard-body">
+                <div class="ecard-top">
+                  <span class="ecard-time">11:30 AM</span>
+                  <span class="ecard-mood-ico">😄</span>
+                </div>
+                <div class="ecard-desc">Best mood in weeks. Everything just clicking today — work, energy, focus. Nothing specific triggered it, just felt aligned.</div>
+                <div class="ecard-chips">
+                  <div class="chip c-mood"><div class="chip-dot d-mood"></div>9</div>
+                  <div class="chip c-energy"><div class="chip-dot d-energy"></div>9</div>
+                  <div class="chip c-boredom"><div class="chip-dot d-boredom"></div>1</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- scroller -->
+
+        <!-- FAB -->
+        <div class="fab">+</div>
+
+        <!-- Bottom nav -->
+        <div class="bnav">
+          <div class="bnav-item on">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--mood)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="12" y2="17"/>
+              </svg>
+            </div>
+            <span class="bnav-label" style="color:var(--mood)">Notes</span>
+          </div>
+          <div class="bnav-item">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <span class="bnav-label">Graph</span>
+          </div>
+          <div class="bnav-item">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+              </svg>
+            </div>
+            <span class="bnav-label">Settings</span>
+          </div>
+        </div>
+
+      </div><!-- #s-notes -->
+
+
+      <!-- ══════════════════════════════════════
+           SCREEN: ADD ENTRY
+      ══════════════════════════════════════ -->
+      <div class="screen" id="s-add">
+
+        <div class="add-header">
+          <div class="back-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--t1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </div>
+          <span class="add-title">New Entry</span>
+        </div>
+
+        <div class="scroller">
+          <div class="add-form">
+
+            <!-- Date/Time -->
+            <div class="dt-row">
+              <div class="dt-left">
+                <span class="dt-lbl">Date & Time</span>
+                <span class="dt-val">Sat, 31 May · 9:41 AM</span>
+              </div>
+              <div class="dt-edit">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--mood)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <textarea class="desc-area" rows="5">Woke up to a beautiful morning. The sunlight through the window felt unusually warm today. Tried meditating for 10 minutes which helped ground me before starting work.</textarea>
+
+            <!-- Scores -->
+            <span class="score-head">How are you feeling?</span>
+
+            <div class="score-card">
+
+              <!-- Mood -->
+              <div class="score-row" style="padding-top:3px;">
+                <div class="score-row-top">
+                  <div class="score-name">
+                    <div class="score-ndot" style="background:var(--mood);"></div>
+                    <span class="score-ntext">Mood</span>
+                  </div>
+                  <span class="score-numval" style="color:var(--mood)">7</span>
+                </div>
+                <div class="slider-track">
+                  <div class="slider-bg">
+                    <div class="slider-fill" style="width:70%;background:linear-gradient(90deg,rgba(167,139,250,.3),var(--mood));"></div>
+                  </div>
+                  <div class="slider-thumb" style="left:70%;border-color:var(--mood);box-shadow:0 0 12px rgba(167,139,250,.5),0 2px 8px rgba(0,0,0,.4);"></div>
+                </div>
+              </div>
+
+              <!-- Energy -->
+              <div class="score-row">
+                <div class="score-row-top">
+                  <div class="score-name">
+                    <div class="score-ndot" style="background:var(--energy);"></div>
+                    <span class="score-ntext">Energy</span>
+                  </div>
+                  <span class="score-numval" style="color:var(--energy)">5</span>
+                </div>
+                <div class="slider-track">
+                  <div class="slider-bg">
+                    <div class="slider-fill" style="width:50%;background:linear-gradient(90deg,rgba(251,191,36,.3),var(--energy));"></div>
+                  </div>
+                  <div class="slider-thumb" style="left:50%;border-color:var(--energy);box-shadow:0 0 12px rgba(251,191,36,.5),0 2px 8px rgba(0,0,0,.4);"></div>
+                </div>
+              </div>
+
+              <!-- Boredom -->
+              <div class="score-row" style="padding-bottom:3px;">
+                <div class="score-row-top">
+                  <div class="score-name">
+                    <div class="score-ndot" style="background:var(--boredom);"></div>
+                    <span class="score-ntext">Boredom</span>
+                  </div>
+                  <span class="score-numval" style="color:var(--boredom)">3</span>
+                </div>
+                <div class="slider-track">
+                  <div class="slider-bg">
+                    <div class="slider-fill" style="width:30%;background:linear-gradient(90deg,rgba(52,211,153,.3),var(--boredom));"></div>
+                  </div>
+                  <div class="slider-thumb" style="left:30%;border-color:var(--boredom);box-shadow:0 0 12px rgba(52,211,153,.5),0 2px 8px rgba(0,0,0,.4);"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <button class="save-btn">Save Entry</button>
+
+          </div>
+        </div>
+
+      </div><!-- #s-add -->
+
+
+      <!-- ══════════════════════════════════════
+           SCREEN: GRAPH
+      ══════════════════════════════════════ -->
+      <div class="screen" id="s-graph">
+
+        <div class="g-header">
+          <span class="g-title">Insights</span>
+          <div class="g-filter">
+            <button class="gf-btn">7D</button>
+            <button class="gf-btn on">30D</button>
+            <button class="gf-btn">All</button>
+          </div>
+        </div>
+
+        <div class="scroller">
+          <div class="chart-wrap">
+
+            <!-- MOOD CHART -->
+            <div class="chart-card mood-card">
+              <div class="chart-head">
+                <div class="chart-name">
+                  <div class="chart-dot" style="background:var(--mood);"></div>
+                  Mood
+                </div>
+                <div class="chart-stat">
+                  <span class="chart-stat-val" style="color:var(--mood)">7.1</span>
+                  <span class="chart-stat-lbl">avg score</span>
+                </div>
+              </div>
+              <div class="chart-svg-box">
+                <svg id="svg-mood" viewBox="0 0 357 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="gm" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#A78BFA" stop-opacity=".32"/>
+                      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="18" x2="357" y2="18" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <line x1="0" y1="48" x2="357" y2="48" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <line x1="0" y1="78" x2="357" y2="78" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <path id="pm-fill" fill="url(#gm)"/>
+                  <path id="pm-line" fill="none" stroke="#A78BFA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g id="pm-dots"></g>
+                </svg>
+              </div>
+              <div class="chart-axis" id="ax-mood"></div>
+            </div>
+
+            <!-- ENERGY CHART -->
+            <div class="chart-card enrg-card">
+              <div class="chart-head">
+                <div class="chart-name">
+                  <div class="chart-dot" style="background:var(--energy);"></div>
+                  Energy
+                </div>
+                <div class="chart-stat">
+                  <span class="chart-stat-val" style="color:var(--energy)">5.8</span>
+                  <span class="chart-stat-lbl">avg score</span>
+                </div>
+              </div>
+              <div class="chart-svg-box">
+                <svg id="svg-energy" viewBox="0 0 357 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="ge" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#FBBF24" stop-opacity=".32"/>
+                      <stop offset="100%" stop-color="#FBBF24" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="18" x2="357" y2="18" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <line x1="0" y1="48" x2="357" y2="48" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <line x1="0" y1="78" x2="357" y2="78" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <path id="pe-fill" fill="url(#ge)"/>
+                  <path id="pe-line" fill="none" stroke="#FBBF24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g id="pe-dots"></g>
+                </svg>
+              </div>
+              <div class="chart-axis" id="ax-energy"></div>
+            </div>
+
+            <!-- BOREDOM CHART -->
+            <div class="chart-card brdm-card">
+              <div class="chart-head">
+                <div class="chart-name">
+                  <div class="chart-dot" style="background:var(--boredom);"></div>
+                  Boredom
+                </div>
+                <div class="chart-stat">
+                  <span class="chart-stat-val" style="color:var(--boredom)">4.3</span>
+                  <span class="chart-stat-lbl">avg score</span>
+                </div>
+              </div>
+              <div class="chart-svg-box">
+                <svg id="svg-boredom" viewBox="0 0 357 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#34D399" stop-opacity=".32"/>
+                      <stop offset="100%" stop-color="#34D399" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="18" x2="357" y2="18" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <line x1="0" y1="48" x2="357" y2="48" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <line x1="0" y1="78" x2="357" y2="78" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  <path id="pb-fill" fill="url(#gb)"/>
+                  <path id="pb-line" fill="none" stroke="#34D399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g id="pb-dots"></g>
+                </svg>
+              </div>
+              <div class="chart-axis" id="ax-boredom"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bottom nav (Graph active) -->
+        <div class="bnav">
+          <div class="bnav-item">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="12" y2="17"/>
+              </svg>
+            </div>
+            <span class="bnav-label">Notes</span>
+          </div>
+          <div class="bnav-item on">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--mood)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <span class="bnav-label" style="color:var(--mood)">Graph</span>
+          </div>
+          <div class="bnav-item">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+              </svg>
+            </div>
+            <span class="bnav-label">Settings</span>
+          </div>
+        </div>
+
+      </div><!-- #s-graph -->
+
+
+      <!-- ══════════════════════════════════════
+           SCREEN: SETTINGS
+      ══════════════════════════════════════ -->
+      <div class="screen" id="s-settings">
+
+        <div class="st-header">
+          <span class="st-title">Settings</span>
+        </div>
+
+        <div class="st-scroll">
+
+          <!-- Appearance -->
+          <div class="st-section">
+            <div class="st-sec-lbl">Appearance</div>
+            <div class="st-item">
+              <div class="st-item-l">
+                <div class="st-icon" style="background:rgba(167,139,250,.12);">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                  </svg>
+                </div>
+                <div class="st-item-txt">
+                  <span class="st-item-name">Theme</span>
+                  <span class="st-item-desc">App appearance</span>
+                </div>
+              </div>
+              <div class="seg">
+                <button class="seg-opt">Light</button>
+                <button class="seg-opt on">Dark</button>
+                <button class="seg-opt">Auto</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tracking -->
+          <div class="st-section">
+            <div class="st-sec-lbl">Tracking</div>
+            <div class="st-item">
+              <div class="st-item-l">
+                <div class="st-icon" style="background:rgba(52,211,153,.12);">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                  </svg>
+                </div>
+                <div class="st-item-txt">
+                  <span class="st-item-name">Score Scale</span>
+                  <span class="st-item-desc">Range for all three metrics</span>
+                </div>
+              </div>
+              <div class="seg">
+                <button class="seg-opt">0–5</button>
+                <button class="seg-opt on">0–10</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="st-section">
+            <div class="st-sec-lbl">Notifications</div>
+            <div class="st-item">
+              <div class="st-item-l">
+                <div class="st-icon" style="background:rgba(251,191,36,.12);">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  </svg>
+                </div>
+                <div class="st-item-txt">
+                  <span class="st-item-name">Daily Reminders</span>
+                  <span class="st-item-desc">Reminded to log each day</span>
+                </div>
+              </div>
+              <div class="tog"><div class="tog-dot"></div></div>
+            </div>
+            <div class="st-item">
+              <div class="st-item-l">
+                <div class="st-icon" style="background:rgba(251,191,36,.12);">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div class="st-item-txt">
+                  <span class="st-item-name">Reminder Time</span>
+                  <span class="st-item-desc">9:00 AM, every day</span>
+                </div>
+              </div>
+              <span class="chev">›</span>
+            </div>
+          </div>
+
+          <!-- Data -->
+          <div class="st-section">
+            <div class="st-sec-lbl">Data</div>
+            <div class="st-item">
+              <div class="st-item-l">
+                <div class="st-icon" style="background:rgba(167,139,250,.12);">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                </div>
+                <div class="st-item-txt">
+                  <span class="st-item-name">Export as CSV</span>
+                  <span class="st-item-desc">Save all entries to a file</span>
+                </div>
+              </div>
+              <span class="chev">›</span>
+            </div>
+            <div class="danger-item">
+              <div class="danger-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                </svg>
+              </div>
+              <span class="danger-text">Delete All Data</span>
+            </div>
+          </div>
+
+          <div class="st-ver">vibelog v1.0.0</div>
+
+        </div>
+
+        <!-- Bottom nav (Settings active) -->
+        <div class="bnav">
+          <div class="bnav-item">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="12" y2="17"/>
+              </svg>
+            </div>
+            <span class="bnav-label">Notes</span>
+          </div>
+          <div class="bnav-item">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <span class="bnav-label">Graph</span>
+          </div>
+          <div class="bnav-item on">
+            <div class="bnav-pill">
+              <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--mood)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+              </svg>
+            </div>
+            <span class="bnav-label" style="color:var(--mood)">Settings</span>
+          </div>
+        </div>
+
+      </div><!-- #s-settings -->
+
+    </div><!-- .phone-screens -->
+  </div><!-- .phone -->
+</div><!-- .phone-wrap -->
+
+<script>
+/* ─── Screen Switching ─── */
+document.querySelectorAll('.sw-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sw-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('s-' + btn.dataset.s).classList.add('active');
+  });
+});
+
+/* ─── Chart Engine ─── */
+function renderChart(values, labels, lineId, fillId, dotsId, axisId, color, maxV) {
+  const W = 357, H = 96, pT = 10, pB = 8;
+  const dH = H - pT - pB;
+  const n = values.length;
+
+  // Compute screen-space points
+  const pts = values.map((v, i) => ({
+    x: (i / (n - 1)) * W,
+    y: pT + (1 - Math.min(v, maxV) / maxV) * dH
+  }));
+
+  // Build smooth catmull-rom cubic bezier path
+  let line = `M${f(pts[0].x)},${f(pts[0].y)}`;
+  for (let i = 0; i < n - 1; i++) {
+    const p0 = pts[Math.max(0, i - 1)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(n - 1, i + 2)];
+    const c1x = p1.x + (p2.x - p0.x) / 5.5;
+    const c1y = p1.y + (p2.y - p0.y) / 5.5;
+    const c2x = p2.x - (p3.x - p1.x) / 5.5;
+    const c2y = p2.y - (p3.y - p1.y) / 5.5;
+    line += ` C${f(c1x)},${f(c1y)} ${f(c2x)},${f(c2y)} ${f(p2.x)},${f(p2.y)}`;
+  }
+
+  const fill = line + ` L${f(pts[n-1].x)},${H} L${f(pts[0].x)},${H} Z`;
+
+  document.getElementById(lineId).setAttribute('d', line);
+  document.getElementById(fillId).setAttribute('d', fill);
+
+  // Dots — only last point + ~every 3rd
+  const dotsG = document.getElementById(dotsId);
+  dotsG.innerHTML = '';
+  pts.forEach((p, i) => {
+    if (i % 3 !== 0 && i !== n - 1) return;
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', f(p.x));
+    c.setAttribute('cy', f(p.y));
+    c.setAttribute('r', i === n - 1 ? '5' : '3.5');
+    c.setAttribute('fill', i === n - 1 ? color : 'none');
+    c.setAttribute('stroke', color);
+    c.setAttribute('stroke-width', '2');
+    if (i === n - 1) c.setAttribute('stroke', '#141428');
+    dotsG.appendChild(c);
+  });
+
+  // Axis labels — 5 evenly spaced
+  const ax = document.getElementById(axisId);
+  ax.innerHTML = '';
+  const idxs = [0, Math.round((n-1)/4), Math.round((n-1)/2), Math.round(3*(n-1)/4), n-1];
+  idxs.forEach(idx => {
+    const sp = document.createElement('span');
+    sp.className = 'axis-lbl';
+    sp.textContent = labels[idx];
+    ax.appendChild(sp);
+  });
+}
+
+function f(n) { return n.toFixed(1); }
+
+/* Data */
+const mood    = [4,6,5,7,8,6,9,7,8,7,6,8];
+const energy  = [6,5,7,4,6,8,5,7,4,6,7,5];
+const boredom = [7,5,6,4,3,5,2,4,6,3,5,3];
+const xlabels = ['May 20','May 21','May 22','May 23','May 24','May 25','May 26','May 27','May 28','May 29','May 30','May 31'];
+
+renderChart(mood,    xlabels, 'pm-line', 'pm-fill', 'pm-dots', 'ax-mood',    '#A78BFA', 10);
+renderChart(energy,  xlabels, 'pe-line', 'pe-fill', 'pe-dots', 'ax-energy',  '#FBBF24', 10);
+renderChart(boredom, xlabels, 'pb-line', 'pb-fill', 'pb-dots', 'ax-boredom', '#34D399', 10);
+</script>
+</body>
+</html>
