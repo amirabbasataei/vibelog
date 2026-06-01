@@ -176,7 +176,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get boredomOverTime => 'تغییرات انگیزه';
 
   @override
-  String get graphInsights => 'بینش‌ها';
+  String get graphInsights => 'تحلیل';
 
   @override
   String get graph7d => '۷ روز';

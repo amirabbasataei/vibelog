@@ -204,7 +204,7 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
   Widget _buildDateTimeCard(
       BuildContext context, AppLocalizations l10n, ColorScheme cs) {
     final dateStr =
-        DateFormat('EEE, d MMM · h:mm a').format(_selectedDateTime);
+        DateFormat('EEE, d MMM · HH:mm').format(_selectedDateTime);
     return GestureDetector(
       onTap: _pickDateTime,
       child: Container(

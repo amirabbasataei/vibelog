@@ -21,7 +21,7 @@ class MoodEntryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
-    final timeStr = DateFormat('h:mm a').format(entry.timestamp);
+    final timeStr = DateFormat('HH:mm').format(entry.timestamp);
 
     return Dismissible(
       key: Key('entry_${entry.id}'),

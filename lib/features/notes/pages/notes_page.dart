@@ -233,28 +233,28 @@ class _NotesHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                width: 36,
-                height: 36,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [moodColor, Color(0xFF7C5CF5)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Text(
-                    'A',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: 36,
+              //   height: 36,
+              //   decoration: const BoxDecoration(
+              //     gradient: LinearGradient(
+              //       colors: [moodColor, Color(0xFF7C5CF5)],
+              //       begin: Alignment.topLeft,
+              //       end: Alignment.bottomRight,
+              //     ),
+              //     shape: BoxShape.circle,
+              //   ),
+              //   child: const Center(
+              //     child: Text(
+              //       'A',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.w700,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
