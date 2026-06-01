@@ -57,23 +57,6 @@ class SettingsPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      _SectionLabel(l10n.settingsTrackingSection),
-                      _SettingsCard(
-                        children: [
-                          _SettingsTile(
-                            iconData: Icons.show_chart_rounded,
-                            iconColor: Colors.green,
-                            title: l10n.settingsScaleTitle,
-                            subtitle: l10n.settingsScaleSubtitle,
-                            trailing: _ScaleSegmentedButton(
-                              current: settings.scaleMax,
-                              onChanged: cubit.setScaleMax,
-                              l10n: l10n,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
                       _SectionLabel(l10n.settingsLanguageSection),
                       _SettingsCard(
                         children: [
@@ -259,10 +242,6 @@ class _ThemeSegmentedButton extends StatelessWidget {
         ButtonSegment(
           value: ThemeMode.dark,
           label: Text(l10n.settingsThemeDark, style: const TextStyle(fontSize: 12)),
-        ),
-        ButtonSegment(
-          value: ThemeMode.system,
-          label: Text(l10n.settingsThemeSystem, style: const TextStyle(fontSize: 12)),
         ),
       ],
       selected: {current},

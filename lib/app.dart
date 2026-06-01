@@ -31,8 +31,16 @@ class VibelogApp extends StatelessWidget {
               Locale('fa'),
             ],
             locale: Locale(settings.locale),
-            theme: lightTheme,
-            darkTheme: darkTheme,
+            theme: settings.locale == 'fa'
+                ? lightTheme.copyWith(
+                    textTheme: lightTheme.textTheme.apply(fontFamily: 'IRANSansXFaNum'),
+                  )
+                : lightTheme,
+            darkTheme: settings.locale == 'fa'
+                ? darkTheme.copyWith(
+                    textTheme: darkTheme.textTheme.apply(fontFamily: 'IRANSansXFaNum'),
+                  )
+                : darkTheme,
             themeMode: settings.themeMode,
             routerConfig: appRouter,
           );

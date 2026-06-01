@@ -694,7 +694,7 @@ class SettingsState extends Equatable {
 
 ### `SettingsPage` sections
 
-1. **Score Scale** — `SegmentedButton<int>` with options `5` and `10`; calls `settingsCubit.setScaleMax()`
+1. **Language** — `SegmentedButton<String>` with options `en` and `fa`; calls `settingsCubit.setLocale()`
 2. **Theme** — `SegmentedButton<ThemeMode>` with Light / Dark / System; calls `settingsCubit.setThemeMode()`
 3. **Danger Zone** — "Delete all data" `OutlinedButton` with red color; shows `AlertDialog` for confirmation; calls `notesRepository.deleteAll()`
 

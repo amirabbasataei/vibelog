@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class SettingsState extends Equatable {
   const SettingsState({
     this.scaleMax = 10,
-    this.themeMode = ThemeMode.system,
+    this.themeMode = ThemeMode.dark,
     this.locale = 'en',
   });
 

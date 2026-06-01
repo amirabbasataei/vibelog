@@ -54,7 +54,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get energy => 'انرژی';
 
   @override
-  String get boredom => 'بی‌حوصلگی';
+  String get boredom => 'انگیزه';
 
   @override
   String get descriptionHint => 'الان چه احساسی داری؟';
@@ -173,7 +173,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get energyOverTime => 'تغییرات انرژی';
 
   @override
-  String get boredomOverTime => 'تغییرات بی‌حوصلگی';
+  String get boredomOverTime => 'تغییرات انگیزه';
 
   @override
   String get graphInsights => 'بینش‌ها';

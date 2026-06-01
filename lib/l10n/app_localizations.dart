@@ -191,7 +191,7 @@ abstract class AppLocalizations {
   /// No description provided for @boredom.
   ///
   /// In en, this message translates to:
-  /// **'Boredom'**
+  /// **'Motivation'**
   String get boredom;
 
   /// No description provided for @descriptionHint.

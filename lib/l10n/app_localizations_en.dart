@@ -54,7 +54,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get energy => 'Energy';
 
   @override
-  String get boredom => 'Boredom';
+  String get boredom => 'Motivation';
 
   @override
   String get descriptionHint => 'How are you feeling?';

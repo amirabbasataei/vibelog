@@ -17,12 +17,6 @@ class MoodEntryCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onDismissed;
 
-  Color _barColor() {
-    if (entry.mood <= 3) return lowColor;
-    if (entry.mood <= 6) return midColor;
-    return highColor;
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -54,16 +48,6 @@ class MoodEntryCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  width: 4,
-                  decoration: BoxDecoration(
-                    color: _barColor(),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(18),
-                      bottomLeft: Radius.circular(18),
-                    ),
-                  ),
-                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
