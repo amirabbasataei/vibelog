@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vibelog/l10n/app_localizations.dart';
 import '../../../core/di/injection.dart';
 import '../../../features/notes/repository/notes_repository.dart';
@@ -72,6 +73,13 @@ class SettingsPage extends StatelessWidget {
                       _SettingsCard(
                         children: [
                           _DeleteAllTile(l10n: l10n),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      _SectionLabel(l10n.settingsAboutSection),
+                      _SettingsCard(
+                        children: [
+                          _GitHubTile(l10n: l10n),
                         ],
                       ),
                       const SizedBox(height: 32),
@@ -342,6 +350,60 @@ class _LanguageTile extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GitHubTile extends StatelessWidget {
+  const _GitHubTile({required this.l10n});
+  final AppLocalizations l10n;
+
+  static const _repoUrl = 'https://github.com/amirabbasataei/vibelog';
+
+  Future<void> _openGitHub() async {
+    final uri = Uri.parse(_repoUrl);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: _openGitHub,
+      borderRadius: BorderRadius.circular(16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        child: Row(
+          children: [
+            const _IconBox(iconData: Icons.star_rounded, color: Colors.orange),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l10n.settingsGitHubTitle,
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  Text(
+                    l10n.settingsGitHubSubtitle,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.55),
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.open_in_new_rounded,
+              size: 18,
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -215,26 +215,26 @@ class _ChartsView extends StatelessWidget {
               maxY: maxY,
             ),
           ),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 260,
-            child: ScoreLineChart(
-              title: l10n.energy,
-              spots: _toSpots((e) => e.energy),
-              color: energyColor,
-              maxY: maxY,
-            ),
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 260,
-            child: ScoreLineChart(
-              title: l10n.boredom,
-              spots: _toSpots((e) => e.boredom),
-              color: boredomColor,
-              maxY: maxY,
-            ),
-          ),
+          // const SizedBox(height: 24),
+          // SizedBox(
+          //   height: 260,
+          //   child: ScoreLineChart(
+          //     title: l10n.energy,
+          //     spots: _toSpots((e) => e.energy),
+          //     color: energyColor,
+          //     maxY: maxY,
+          //   ),
+          // ),
+          // const SizedBox(height: 24),
+          // SizedBox(
+          //   height: 260,
+          //   child: ScoreLineChart(
+          //     title: l10n.boredom,
+          //     spots: _toSpots((e) => e.boredom),
+          //     color: boredomColor,
+          //     maxY: maxY,
+          //   ),
+          // ),
         ],
       ),
     );

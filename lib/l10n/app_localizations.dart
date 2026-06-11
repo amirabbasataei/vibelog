@@ -541,6 +541,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Untitled thought'**
   String get thoughtNoTitle;
+
+  /// No description provided for @settingsAboutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'ABOUT'**
+  String get settingsAboutSection;
+
+  /// No description provided for @settingsGitHubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Star us on GitHub'**
+  String get settingsGitHubTitle;
+
+  /// No description provided for @settingsGitHubSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'vibelog is open source — we\'d love a star!'**
+  String get settingsGitHubSubtitle;
 }
 
 class _AppLocalizationsDelegate

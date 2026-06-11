@@ -230,4 +230,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get thoughtNoTitle => 'Untitled thought';
+
+  @override
+  String get settingsAboutSection => 'ABOUT';
+
+  @override
+  String get settingsGitHubTitle => 'Star us on GitHub';
+
+  @override
+  String get settingsGitHubSubtitle =>
+      'vibelog is open source — we\'d love a star!';
 }

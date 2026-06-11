@@ -73,5 +73,8 @@
   "thoughtResolutionLabel": "Ways to resolve this",
   "thoughtResolutionHint": "What can help you feel better?",
   "thoughtSaveDetails": "Save Details",
-  "thoughtNoTitle": "Untitled thought"
+  "thoughtNoTitle": "Untitled thought",
+  "settingsAboutSection": "ABOUT",
+  "settingsGitHubTitle": "Star us on GitHub",
+  "settingsGitHubSubtitle": "vibelog is open source — we'd love a star!"
 }

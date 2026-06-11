@@ -231,4 +231,14 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get thoughtNoTitle => 'فکر بی‌نام';
+
+  @override
+  String get settingsAboutSection => 'درباره';
+
+  @override
+  String get settingsGitHubTitle => 'ستاره در GitHub';
+
+  @override
+  String get settingsGitHubSubtitle =>
+      'وایب‌لاگ متن‌باز است — خوشحال می‌شیم ستاره بدید!';
 }
