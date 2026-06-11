@@ -59,5 +59,19 @@
   "graph7d": "۷ روز",
   "graph30d": "۳۰ روز",
   "graphAll": "همه",
-  "graphAvgScore": "میانگین"
+  "graphAvgScore": "میانگین",
+  "tabMind": "بوم ذهن",
+  "mindCanvasHint": "یک شکل بسته رسم کن تا یک فکر را تجسم کنی",
+  "thoughtNameDialogTitle": "این فکر را نام‌گذاری کن",
+  "thoughtNameHint": "مثلاً: استرس کاری، اضطراب...",
+  "thoughtSkip": "رد کردن",
+  "thoughtDetailsTitle": "جزئیات فکر",
+  "thoughtCauseLabel": "چه چیزی باعث این فکر شد؟",
+  "thoughtCauseHint": "محرک را توصیف کن...",
+  "thoughtRootLabel": "ریشه این فکر",
+  "thoughtRootHint": "دلیل اصلی چیست؟",
+  "thoughtResolutionLabel": "راه‌های حل این نگرانی",
+  "thoughtResolutionHint": "چه چیزی می‌تواند کمک کند؟",
+  "thoughtSaveDetails": "ذخیره جزئیات",
+  "thoughtNoTitle": "فکر بی‌نام"
 }

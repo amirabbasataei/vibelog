@@ -189,4 +189,46 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get graphAvgScore => 'میانگین';
+
+  @override
+  String get tabMind => 'بوم ذهن';
+
+  @override
+  String get mindCanvasHint => 'یک شکل بسته رسم کن تا یک فکر را تجسم کنی';
+
+  @override
+  String get thoughtNameDialogTitle => 'این فکر را نام‌گذاری کن';
+
+  @override
+  String get thoughtNameHint => 'مثلاً: استرس کاری، اضطراب...';
+
+  @override
+  String get thoughtSkip => 'رد کردن';
+
+  @override
+  String get thoughtDetailsTitle => 'جزئیات فکر';
+
+  @override
+  String get thoughtCauseLabel => 'چه چیزی باعث این فکر شد؟';
+
+  @override
+  String get thoughtCauseHint => 'محرک را توصیف کن...';
+
+  @override
+  String get thoughtRootLabel => 'ریشه این فکر';
+
+  @override
+  String get thoughtRootHint => 'دلیل اصلی چیست؟';
+
+  @override
+  String get thoughtResolutionLabel => 'راه‌های حل این نگرانی';
+
+  @override
+  String get thoughtResolutionHint => 'چه چیزی می‌تواند کمک کند؟';
+
+  @override
+  String get thoughtSaveDetails => 'ذخیره جزئیات';
+
+  @override
+  String get thoughtNoTitle => 'فکر بی‌نام';
 }

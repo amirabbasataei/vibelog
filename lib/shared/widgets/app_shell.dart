@@ -9,7 +9,8 @@ class AppShell extends StatelessWidget {
 
   int _locationToIndex(String location) {
     if (location.startsWith('/graph')) return 1;
-    if (location.startsWith('/settings')) return 2;
+    if (location.startsWith('/mind')) return 2;
+    if (location.startsWith('/settings')) return 3;
     return 0;
   }
 
@@ -28,6 +29,8 @@ class AppShell extends StatelessWidget {
             case 1:
               context.go('/graph');
             case 2:
+              context.go('/mind');
+            case 3:
               context.go('/settings');
           }
         },
@@ -41,6 +44,11 @@ class AppShell extends StatelessWidget {
             icon: const Icon(Icons.show_chart),
             selectedIcon: const Icon(Icons.show_chart),
             label: l10n.tabGraph,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.bubble_chart_outlined),
+            selectedIcon: const Icon(Icons.bubble_chart),
+            label: l10n.tabMind,
           ),
           NavigationDestination(
             icon: const Icon(Icons.tune_outlined),

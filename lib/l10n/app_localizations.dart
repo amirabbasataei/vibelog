@@ -457,6 +457,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'avg score'**
   String get graphAvgScore;
+
+  /// No description provided for @tabMind.
+  ///
+  /// In en, this message translates to:
+  /// **'Mind Canvas'**
+  String get tabMind;
+
+  /// No description provided for @mindCanvasHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw a closed shape to visualize a thought'**
+  String get mindCanvasHint;
+
+  /// No description provided for @thoughtNameDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Name this thought'**
+  String get thoughtNameDialogTitle;
+
+  /// No description provided for @thoughtNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Work stress, Anxiety...'**
+  String get thoughtNameHint;
+
+  /// No description provided for @thoughtSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get thoughtSkip;
+
+  /// No description provided for @thoughtDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thought Details'**
+  String get thoughtDetailsTitle;
+
+  /// No description provided for @thoughtCauseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What caused this thought?'**
+  String get thoughtCauseLabel;
+
+  /// No description provided for @thoughtCauseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe the trigger...'**
+  String get thoughtCauseHint;
+
+  /// No description provided for @thoughtRootLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Root of the thought'**
+  String get thoughtRootLabel;
+
+  /// No description provided for @thoughtRootHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What is the underlying reason?'**
+  String get thoughtRootHint;
+
+  /// No description provided for @thoughtResolutionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ways to resolve this'**
+  String get thoughtResolutionLabel;
+
+  /// No description provided for @thoughtResolutionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What can help you feel better?'**
+  String get thoughtResolutionHint;
+
+  /// No description provided for @thoughtSaveDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Details'**
+  String get thoughtSaveDetails;
+
+  /// No description provided for @thoughtNoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled thought'**
+  String get thoughtNoTitle;
 }
 
 class _AppLocalizationsDelegate

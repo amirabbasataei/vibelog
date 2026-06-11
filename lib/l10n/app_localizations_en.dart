@@ -188,4 +188,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get graphAvgScore => 'avg score';
+
+  @override
+  String get tabMind => 'Mind Canvas';
+
+  @override
+  String get mindCanvasHint => 'Draw a closed shape to visualize a thought';
+
+  @override
+  String get thoughtNameDialogTitle => 'Name this thought';
+
+  @override
+  String get thoughtNameHint => 'e.g. Work stress, Anxiety...';
+
+  @override
+  String get thoughtSkip => 'Skip';
+
+  @override
+  String get thoughtDetailsTitle => 'Thought Details';
+
+  @override
+  String get thoughtCauseLabel => 'What caused this thought?';
+
+  @override
+  String get thoughtCauseHint => 'Describe the trigger...';
+
+  @override
+  String get thoughtRootLabel => 'Root of the thought';
+
+  @override
+  String get thoughtRootHint => 'What is the underlying reason?';
+
+  @override
+  String get thoughtResolutionLabel => 'Ways to resolve this';
+
+  @override
+  String get thoughtResolutionHint => 'What can help you feel better?';
+
+  @override
+  String get thoughtSaveDetails => 'Save Details';
+
+  @override
+  String get thoughtNoTitle => 'Untitled thought';
 }

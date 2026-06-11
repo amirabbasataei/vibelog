@@ -59,5 +59,19 @@
   "graph7d": "7D",
   "graph30d": "30D",
   "graphAll": "All",
-  "graphAvgScore": "avg score"
+  "graphAvgScore": "avg score",
+  "tabMind": "Mind Canvas",
+  "mindCanvasHint": "Draw a closed shape to visualize a thought",
+  "thoughtNameDialogTitle": "Name this thought",
+  "thoughtNameHint": "e.g. Work stress, Anxiety...",
+  "thoughtSkip": "Skip",
+  "thoughtDetailsTitle": "Thought Details",
+  "thoughtCauseLabel": "What caused this thought?",
+  "thoughtCauseHint": "Describe the trigger...",
+  "thoughtRootLabel": "Root of the thought",
+  "thoughtRootHint": "What is the underlying reason?",
+  "thoughtResolutionLabel": "Ways to resolve this",
+  "thoughtResolutionHint": "What can help you feel better?",
+  "thoughtSaveDetails": "Save Details",
+  "thoughtNoTitle": "Untitled thought"
 }
