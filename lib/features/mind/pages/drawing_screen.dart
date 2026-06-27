@@ -6,7 +6,6 @@ import '../../../shared/models/drawing_models.dart';
 import '../cubit/drawing_cubit.dart';
 import '../cubit/drawing_state.dart';
 import '../widgets/drawing_canvas.dart';
-import '../widgets/thought_shape_overlay.dart';
 import '../widgets/tool_bar.dart';
 
 class DrawingScreen extends StatelessWidget {
@@ -38,11 +37,6 @@ class DrawingScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     const DrawingCanvas(),
-                    if (!state.isDrawing)
-                      ThoughtShapeOverlay(
-                        strokes: state.strokes,
-                        thoughtDetails: state.thoughtDetails,
-                      ),
                   ],
                 ),
               ),
