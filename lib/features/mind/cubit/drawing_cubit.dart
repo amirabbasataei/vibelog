@@ -146,16 +146,21 @@ class DrawingCubit extends Cubit<DrawingState> {
     // its saved details — are only removed once it has been *substantially*
     // erased. This keeps the slow, deliberate "clearing the mind" feel instead
     // of wiping the whole thought away the instant the eraser grazes it.
-    // Coverage is measured against all eraser strokes, which accumulate and
-    // persist, so erosion can be spread across several separate touches.
-    final eraserStrokes = [
-      ...state.strokes.where((s) => s.isEraser),
-      eraserStroke,
-    ];
+    // Erosion can be spread across several separate touches, so coverage is
+    // measured against accumulated eraser strokes. Crucially, only eraser
+    // strokes drawn *after* a shape count toward erasing it — otherwise the
+    // leftover eraser marks from a previously cleared thought would pre-erase
+    // a new shape drawn in the same spot, wiping it out in one stroke.
     final erasedShapeIds = <String>{};
-    for (final stroke in state.strokes) {
+    for (int i = 0; i < state.strokes.length; i++) {
+      final stroke = state.strokes[i];
       if (!stroke.isClosed || stroke.id == null) continue;
-      if (_shapeErasedFraction(stroke, eraserStrokes) >= _eraseThreshold) {
+      final relevantErasers = <DrawingStroke>[
+        for (int j = i + 1; j < state.strokes.length; j++)
+          if (state.strokes[j].isEraser) state.strokes[j],
+        eraserStroke,
+      ];
+      if (_shapeErasedFraction(stroke, relevantErasers) >= _eraseThreshold) {
         erasedShapeIds.add(stroke.id!);
       }
     }

@@ -72,21 +72,20 @@ class _StatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDrawing = state.activeStroke != null;
     final isPencil = state.selectedTool == DrawingTool.pencil;
 
     String message;
     if (!isDrawing) {
-      message = isPencil
-          ? 'Tap & drag to draw • Return near the start point to close the shape'
-          : 'Tap & drag to erase gradually';
+      message = isPencil ? l10n.mindStatusDrawHint : l10n.mindStatusEraseHint;
     } else if (isPencil) {
       final pts = state.activeStroke!.points;
       message = pts.length < 3
-          ? 'Drawing… keep going'
-          : 'Return close to the start ● to close & fill the shape';
+          ? l10n.mindStatusDrawing
+          : l10n.mindStatusDrawingClose;
     } else {
-      message = 'Erasing…';
+      message = l10n.mindStatusErasing;
     }
 
     return AnimatedContainer(
@@ -116,7 +115,7 @@ class _StatusBar extends StatelessWidget {
           ),
           if (state.strokes.isNotEmpty)
             Text(
-              '${state.strokes.length} stroke${state.strokes.length == 1 ? '' : 's'}',
+              l10n.mindStrokeCount(state.strokes.length),
               style: const TextStyle(
                 fontSize: 11,
                 color: Color(0xFF888899),

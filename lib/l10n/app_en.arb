@@ -76,5 +76,16 @@
   "thoughtNoTitle": "Untitled thought",
   "settingsAboutSection": "ABOUT",
   "settingsGitHubTitle": "Star us on GitHub",
-  "settingsGitHubSubtitle": "vibelog is open source — we'd love a star!"
+  "settingsGitHubSubtitle": "vibelog is open source — we'd love a star!",
+  "mindStatusDrawHint": "Tap & drag to draw • Return near the start point to close the shape",
+  "mindStatusEraseHint": "Tap & drag to erase gradually",
+  "mindStatusDrawing": "Drawing… keep going",
+  "mindStatusDrawingClose": "Return close to the start ● to close & fill the shape",
+  "mindStatusErasing": "Erasing…",
+  "mindStrokeCount": "{count, plural, =1{1 stroke} other{{count} strokes}}",
+  "@mindStrokeCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  }
 }

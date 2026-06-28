@@ -240,4 +240,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsGitHubSubtitle =>
       'vibelog is open source — we\'d love a star!';
+
+  @override
+  String get mindStatusDrawHint =>
+      'Tap & drag to draw • Return near the start point to close the shape';
+
+  @override
+  String get mindStatusEraseHint => 'Tap & drag to erase gradually';
+
+  @override
+  String get mindStatusDrawing => 'Drawing… keep going';
+
+  @override
+  String get mindStatusDrawingClose =>
+      'Return close to the start ● to close & fill the shape';
+
+  @override
+  String get mindStatusErasing => 'Erasing…';
+
+  @override
+  String mindStrokeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count strokes',
+      one: '1 stroke',
+    );
+    return '$_temp0';
+  }
 }

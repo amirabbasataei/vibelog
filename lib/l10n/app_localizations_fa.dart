@@ -241,4 +241,31 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get settingsGitHubSubtitle =>
       'وایب‌لاگ متن‌باز است — خوشحال می‌شیم ستاره بدید!';
+
+  @override
+  String get mindStatusDrawHint =>
+      'برای رسم، انگشت را بکش • نزدیک نقطه شروع برگرد تا شکل بسته شود';
+
+  @override
+  String get mindStatusEraseHint => 'برای پاک کردن تدریجی، انگشت را بکش';
+
+  @override
+  String get mindStatusDrawing => 'در حال رسم… ادامه بده';
+
+  @override
+  String get mindStatusDrawingClose =>
+      'نزدیک نقطه شروع ● برگرد تا شکل بسته و پُر شود';
+
+  @override
+  String get mindStatusErasing => 'در حال پاک کردن…';
+
+  @override
+  String mindStrokeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count خط',
+    );
+    return '$_temp0';
+  }
 }

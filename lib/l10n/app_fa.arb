@@ -76,5 +76,16 @@
   "thoughtNoTitle": "فکر بی‌نام",
   "settingsAboutSection": "درباره",
   "settingsGitHubTitle": "ستاره در GitHub",
-  "settingsGitHubSubtitle": "وایب‌لاگ متن‌باز است — خوشحال می‌شیم ستاره بدید!"
+  "settingsGitHubSubtitle": "وایب‌لاگ متن‌باز است — خوشحال می‌شیم ستاره بدید!",
+  "mindStatusDrawHint": "برای رسم، انگشت را بکش • نزدیک نقطه شروع برگرد تا شکل بسته شود",
+  "mindStatusEraseHint": "برای پاک کردن تدریجی، انگشت را بکش",
+  "mindStatusDrawing": "در حال رسم… ادامه بده",
+  "mindStatusDrawingClose": "نزدیک نقطه شروع ● برگرد تا شکل بسته و پُر شود",
+  "mindStatusErasing": "در حال پاک کردن…",
+  "mindStrokeCount": "{count, plural, other{{count} خط}}",
+  "@mindStrokeCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  }
 }

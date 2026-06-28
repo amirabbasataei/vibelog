@@ -559,6 +559,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'vibelog is open source — we\'d love a star!'**
   String get settingsGitHubSubtitle;
+
+  /// No description provided for @mindStatusDrawHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap & drag to draw • Return near the start point to close the shape'**
+  String get mindStatusDrawHint;
+
+  /// No description provided for @mindStatusEraseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap & drag to erase gradually'**
+  String get mindStatusEraseHint;
+
+  /// No description provided for @mindStatusDrawing.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawing… keep going'**
+  String get mindStatusDrawing;
+
+  /// No description provided for @mindStatusDrawingClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Return close to the start ● to close & fill the shape'**
+  String get mindStatusDrawingClose;
+
+  /// No description provided for @mindStatusErasing.
+  ///
+  /// In en, this message translates to:
+  /// **'Erasing…'**
+  String get mindStatusErasing;
+
+  /// No description provided for @mindStrokeCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 stroke} other{{count} strokes}}'**
+  String mindStrokeCount(int count);
 }
 
 class _AppLocalizationsDelegate
