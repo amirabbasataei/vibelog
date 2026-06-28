@@ -19,7 +19,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -27,6 +27,23 @@ class AppDatabase extends _$AppDatabase {
           if (from < 2) {
             await m.createTable(drawingStrokes);
             await m.createTable(thoughtDetails);
+          }
+          if (from < 3) {
+            await customStatement('''
+              CREATE TABLE mood_entries_new (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp INTEGER NOT NULL,
+                description TEXT NOT NULL,
+                mood INTEGER NOT NULL
+              )
+            ''');
+            await customStatement('''
+              INSERT INTO mood_entries_new (id, timestamp, description, mood)
+              SELECT id, timestamp, description, mood FROM mood_entries
+            ''');
+            await customStatement('DROP TABLE mood_entries');
+            await customStatement(
+                'ALTER TABLE mood_entries_new RENAME TO mood_entries');
           }
         },
       );

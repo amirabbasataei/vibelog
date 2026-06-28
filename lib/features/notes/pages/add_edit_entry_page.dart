@@ -36,8 +36,6 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
   late DateTime _selectedDateTime;
   final _descController = TextEditingController();
   int _mood = 5;
-  int _energy = 5;
-  int _boredom = 5;
   bool _isLoading = false;
   bool _isSaving = false;
 
@@ -66,8 +64,6 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
         _selectedDateTime = entry.timestamp;
         _descController.text = entry.description;
         _mood = entry.mood;
-        _energy = entry.energy;
-        _boredom = entry.boredom;
         _isLoading = false;
       });
     } else {
@@ -110,8 +106,6 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
       timestamp: _selectedDateTime,
       description: _descController.text.trim(),
       mood: _mood,
-      energy: _energy,
-      boredom: _boredom,
     );
 
     try {
@@ -299,32 +293,12 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: cs.outline, width: 1),
       ),
-      child: Column(
-        children: [
-          ScoreInputRow(
-            label: l10n.mood,
-            value: _mood,
-            color: moodColor,
-            maxScore: scaleMax,
-            onChanged: (v) => setState(() => _mood = v),
-          ),
-          Divider(color: cs.outlineVariant, height: 1),
-          ScoreInputRow(
-            label: l10n.energy,
-            value: _energy,
-            color: energyColor,
-            maxScore: scaleMax,
-            onChanged: (v) => setState(() => _energy = v),
-          ),
-          Divider(color: cs.outlineVariant, height: 1),
-          ScoreInputRow(
-            label: l10n.boredom,
-            value: _boredom,
-            color: boredomColor,
-            maxScore: scaleMax,
-            onChanged: (v) => setState(() => _boredom = v),
-          ),
-        ],
+      child: ScoreInputRow(
+        label: l10n.mood,
+        value: _mood,
+        color: moodColor,
+        maxScore: scaleMax,
+        onChanged: (v) => setState(() => _mood = v),
       ),
     );
   }

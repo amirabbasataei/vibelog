@@ -116,13 +116,13 @@ class _LoadedView extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final groups = _groupByDate(entries, l10n);
     final streak = _computeStreak(entries);
-    final todayAvg = _todayAvg(entries);
+    final todayMoodAvg = _todayMoodAvg(entries);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _NotesHeader(streak: streak, entryCount: entries.length),
-        if (todayAvg != null) _TodayAvgBar(avg: todayAvg),
+        if (todayMoodAvg != null) _TodayAvgBar(moodAvg: todayMoodAvg),
         Expanded(
           child: entries.isEmpty
               ? EmptyStateWidget(
@@ -183,18 +183,13 @@ class _LoadedView extends StatelessWidget {
     return streak;
   }
 
-  Map<String, double>? _todayAvg(List<MoodEntry> entries) {
+  double? _todayMoodAvg(List<MoodEntry> entries) {
     final today = DateUtils.dateOnly(DateTime.now());
     final todayEntries = entries
         .where((e) => DateUtils.dateOnly(e.timestamp) == today)
         .toList();
     if (todayEntries.isEmpty) return null;
-    final count = todayEntries.length;
-    return {
-      'mood': todayEntries.fold(0, (s, e) => s + e.mood) / count,
-      'energy': todayEntries.fold(0, (s, e) => s + e.energy) / count,
-      'boredom': todayEntries.fold(0, (s, e) => s + e.boredom) / count,
-    };
+    return todayEntries.fold(0, (s, e) => s + e.mood) / todayEntries.length;
   }
 }
 
@@ -320,8 +315,8 @@ class _StatPill extends StatelessWidget {
 }
 
 class _TodayAvgBar extends StatelessWidget {
-  const _TodayAvgBar({required this.avg});
-  final Map<String, double> avg;
+  const _TodayAvgBar({required this.moodAvg});
+  final double moodAvg;
 
   @override
   Widget build(BuildContext context) {
@@ -349,26 +344,10 @@ class _TodayAvgBar extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            children: [
-              _AvgScore(
-                value: avg['mood']!,
-                label: l10n.mood,
-                color: moodColor,
-              ),
-              const SizedBox(width: 18),
-              _AvgScore(
-                value: avg['energy']!,
-                label: l10n.energy,
-                color: energyColor,
-              ),
-              const SizedBox(width: 18),
-              _AvgScore(
-                value: avg['boredom']!,
-                label: l10n.boredom,
-                color: boredomColor,
-              ),
-            ],
+          _AvgScore(
+            value: moodAvg,
+            label: l10n.mood,
+            color: moodColor,
           ),
         ],
       ),

@@ -15,7 +15,5 @@ class GraphRepository {
         timestamp: row.timestamp as DateTime,
         description: row.description as String,
         mood: row.mood as int,
-        energy: row.energy as int,
-        boredom: row.boredom as int,
       );
 }

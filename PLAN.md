@@ -34,7 +34,7 @@ Steps:
 5. Implement `AddEditEntryPage`:
    - DateTime picker (date + time)
    - Description `TextField`
-   - Three `ScoreInputRow` for Mood / Energy / Boredom
+   - A `ScoreInputRow` for Mood
    - Save button with validation
 6. Implement `MoodEntryCard` widget
 7. Implement `NotesPage` with BlocBuilder, ListView, FAB, swipe-delete

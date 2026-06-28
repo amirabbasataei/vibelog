@@ -12,7 +12,15 @@ class SettingsCubit extends Cubit<SettingsState> {
       scaleMax: prefs.getInt('scale_max') ?? 10,
       themeMode: _parseTheme(prefs.getString('theme_mode') ?? 'system'),
       locale: prefs.getString('locale_code') ?? 'en',
+      tutorialSeen: prefs.getBool('tutorial_seen') ?? false,
     ));
+  }
+
+  Future<void> markTutorialSeen() async {
+    if (state.tutorialSeen) return;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('tutorial_seen', true);
+    emit(state.copyWith(tutorialSeen: true));
   }
 
   Future<void> setScaleMax(int value) async {

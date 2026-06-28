@@ -51,12 +51,6 @@ class AppLocalizationsFa extends AppLocalizations {
   String get mood => 'حال';
 
   @override
-  String get energy => 'انرژی';
-
-  @override
-  String get boredom => 'انگیزه';
-
-  @override
   String get descriptionHint => 'الان چه احساسی داری؟';
 
   @override
@@ -109,7 +103,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsScaleTitle => 'محدوده امتیاز';
 
   @override
-  String get settingsScaleSubtitle => 'محدوده هر سه معیار';
+  String get settingsScaleSubtitle => 'محدوده امتیاز خلق‌وخو';
 
   @override
   String get settingsScaleOption5 => '۰–۵';
@@ -168,12 +162,6 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get moodOverTime => 'تغییرات حال';
-
-  @override
-  String get energyOverTime => 'تغییرات انرژی';
-
-  @override
-  String get boredomOverTime => 'تغییرات انگیزه';
 
   @override
   String get graphInsights => 'تحلیل';
@@ -244,7 +232,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get mindStatusDrawHint =>
-      'برای رسم، انگشت را بکش • نزدیک نقطه شروع برگرد تا شکل بسته شود';
+      'برای رسم، انگشت خود را بکشید • نزدیک نقطه شروع برگردید تا شکل بسته شود';
 
   @override
   String get mindStatusEraseHint => 'برای پاک کردن تدریجی، انگشت را بکش';
@@ -268,4 +256,41 @@ class AppLocalizationsFa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get tutorialWelcomeTitle => 'به وایب‌لاگ خوش آمدید';
+
+  @override
+  String get tutorialWelcomeBody =>
+      'فضایی آرام برای ثبت حال‌وهوا و درک بهتر افکارت.';
+
+  @override
+  String get tutorialNotesTitle => 'یادداشت‌ها';
+
+  @override
+  String get tutorialNotesBody =>
+      'هر ساعت از روز حالت را ثبت کن. هرچقدر خواستی بنویس و به خلق‌وخو، انرژی و انگیزه‌ات امتیاز بده.';
+
+  @override
+  String get tutorialGraphTitle => 'نمودار';
+
+  @override
+  String get tutorialGraphBody =>
+      'روند خلق‌وخویت را در طول زمان ببین و الگوهای پشت نوسان‌هایت را پیدا کن.';
+
+  @override
+  String get tutorialMindTitle => 'بوم ذهن';
+
+  @override
+  String get tutorialMindBody =>
+      'به یک فکر شکل بده، اسمش را بگذار، سپس علت، ریشه و راه‌های آرام عبور از آن را بررسی کن.';
+
+  @override
+  String get tutorialSkip => 'رد کردن';
+
+  @override
+  String get tutorialNext => 'بعدی';
+
+  @override
+  String get tutorialDone => 'شروع کنیم';
 }

@@ -8,8 +8,6 @@ At any hour of the day, users can log an entry that captures:
 - A **free-text description** of their mental/physical state (can be very long — no limits)
 - Three integer scores on a **0–10** scale:
   - **Mood** — emotional state
-  - **Energy** — physical/mental energy level
-  - **Boredom** — restlessness or disengagement
 
 Entries can be **created** and **edited** at any time. Three **line graphs** plot each score over time.  
 The app has a **bottom navigation bar** with three tabs: **Notes**, **Graph**, **Settings**.
@@ -202,37 +200,29 @@ class MoodEntry extends Equatable {
     required this.timestamp,
     required this.description,
     required this.mood,
-    required this.energy,
-    required this.boredom,
   });
 
   final int id;
   final DateTime timestamp;
   final String description; // Unlimited length — SQLite TEXT
   final int mood;           // 0–10
-  final int energy;         // 0–10
-  final int boredom;        // 0–10
 
   MoodEntry copyWith({
     int? id,
     DateTime? timestamp,
     String? description,
     int? mood,
-    int? energy,
-    int? boredom,
   }) {
     return MoodEntry(
       id: id ?? this.id,
       timestamp: timestamp ?? this.timestamp,
       description: description ?? this.description,
       mood: mood ?? this.mood,
-      energy: energy ?? this.energy,
-      boredom: boredom ?? this.boredom,
     );
   }
 
   @override
-  List<Object?> get props => [id, timestamp, description, mood, energy, boredom];
+  List<Object?> get props => [id, timestamp, description, mood];
 }
 ```
 
@@ -250,8 +240,6 @@ class MoodEntries extends Table {
   DateTimeColumn get timestamp => dateTime()();
   TextColumn get description => text()(); // No maxLength — TEXT is unlimited in SQLite
   IntColumn get mood => integer()();
-  IntColumn get energy => integer()();
-  IntColumn get boredom => integer()();
 }
 ```
 
@@ -557,7 +545,6 @@ The same sealed-class pattern applies to `GraphState` and `SettingsState`.
 Shows:
 - Formatted `timestamp` (e.g. "Mon, 23 May · 14:32")
 - Description preview — one line, `TextOverflow.ellipsis`
-- Three `Chip` badges: `Mood: 7`, `Energy: 4`, `Boredom: 9` — colour-coded (mood = indigo, energy = amber, boredom = teal)
 
 ### `AddEditEntryPage`
 - `entryId` is nullable; `null` = add mode, non-null = edit mode (fetch entry on init)
@@ -599,7 +586,6 @@ Implementation notes:
 - `BlocBuilder` on `GraphState`:
   - `GraphLoading` → `CircularProgressIndicator`
   - `GraphLoaded` with fewer than 2 entries → `EmptyStateWidget` with copy "Add at least 2 entries to see your graphs"
-  - `GraphLoaded` with data → `SingleChildScrollView` containing three `ScoreLineChart` widgets (mood=indigo, energy=amber, boredom=teal) with `SizedBox(height: 260)` each, separated by `SizedBox(height: 24)`
   - `GraphError` → error text
 
 ### `GraphRepository`

@@ -14,8 +14,6 @@
   "delete": "حذف",
   "undo": "بازگردانی",
   "mood": "حال",
-  "energy": "انرژی",
-  "boredom": "انگیزه",
   "descriptionHint": "الان چه احساسی داری؟",
   "dateLabel": "تاریخ",
   "timeLabel": "ساعت",
@@ -33,7 +31,7 @@
   "settingsLanguageSection": "زبان",
   "settingsDataSection": "داده",
   "settingsScaleTitle": "محدوده امتیاز",
-  "settingsScaleSubtitle": "محدوده هر سه معیار",
+  "settingsScaleSubtitle": "محدوده امتیاز خلق‌وخو",
   "settingsScaleOption5": "۰–۵",
   "settingsScaleOption10": "۰–۱۰",
   "settingsThemeTitle": "پوسته",
@@ -53,8 +51,6 @@
   "appVersion": "وایب‌لاگ v1.0.0",
   "entryDeleted": "یادداشت حذف شد",
   "moodOverTime": "تغییرات حال",
-  "energyOverTime": "تغییرات انرژی",
-  "boredomOverTime": "تغییرات انگیزه",
   "graphInsights": "تحلیل",
   "graph7d": "۷ روز",
   "graph30d": "۳۰ روز",
@@ -77,7 +73,7 @@
   "settingsAboutSection": "درباره",
   "settingsGitHubTitle": "ستاره در GitHub",
   "settingsGitHubSubtitle": "وایب‌لاگ متن‌باز است — خوشحال می‌شیم ستاره بدید!",
-  "mindStatusDrawHint": "برای رسم، انگشت را بکش • نزدیک نقطه شروع برگرد تا شکل بسته شود",
+  "mindStatusDrawHint": "برای رسم، انگشت خود را بکشید • نزدیک نقطه شروع برگردید تا شکل بسته شود",
   "mindStatusEraseHint": "برای پاک کردن تدریجی، انگشت را بکش",
   "mindStatusDrawing": "در حال رسم… ادامه بده",
   "mindStatusDrawingClose": "نزدیک نقطه شروع ● برگرد تا شکل بسته و پُر شود",
@@ -87,5 +83,16 @@
     "placeholders": {
       "count": { "type": "int" }
     }
-  }
+  },
+  "tutorialWelcomeTitle": "به وایب‌لاگ خوش آمدید",
+  "tutorialWelcomeBody": "فضایی آرام برای ثبت حال‌وهوا و درک بهتر افکارت.",
+  "tutorialNotesTitle": "یادداشت‌ها",
+  "tutorialNotesBody": "هر ساعت از روز حالت را ثبت کن. هرچقدر خواستی بنویس و به خلق‌وخو، انرژی و انگیزه‌ات امتیاز بده.",
+  "tutorialGraphTitle": "نمودار",
+  "tutorialGraphBody": "روند خلق‌وخویت را در طول زمان ببین و الگوهای پشت نوسان‌هایت را پیدا کن.",
+  "tutorialMindTitle": "بوم ذهن",
+  "tutorialMindBody": "به یک فکر شکل بده، اسمش را بگذار، سپس علت، ریشه و راه‌های آرام عبور از آن را بررسی کن.",
+  "tutorialSkip": "رد کردن",
+  "tutorialNext": "بعدی",
+  "tutorialDone": "شروع کنیم"
 }

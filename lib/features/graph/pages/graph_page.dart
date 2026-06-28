@@ -204,38 +204,14 @@ class _ChartsView extends StatelessWidget {
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 260,
-            child: ScoreLineChart(
-              title: l10n.mood,
-              spots: _toSpots((e) => e.mood),
-              color: moodColor,
-              maxY: maxY,
-            ),
-          ),
-          // const SizedBox(height: 24),
-          // SizedBox(
-          //   height: 260,
-          //   child: ScoreLineChart(
-          //     title: l10n.energy,
-          //     spots: _toSpots((e) => e.energy),
-          //     color: energyColor,
-          //     maxY: maxY,
-          //   ),
-          // ),
-          // const SizedBox(height: 24),
-          // SizedBox(
-          //   height: 260,
-          //   child: ScoreLineChart(
-          //     title: l10n.boredom,
-          //     spots: _toSpots((e) => e.boredom),
-          //     color: boredomColor,
-          //     maxY: maxY,
-          //   ),
-          // ),
-        ],
+      child: SizedBox(
+        height: 260,
+        child: ScoreLineChart(
+          title: l10n.mood,
+          spots: _toSpots((e) => e.mood),
+          color: moodColor,
+          maxY: maxY,
+        ),
       ),
     );
   }

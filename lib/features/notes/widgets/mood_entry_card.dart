@@ -89,26 +89,10 @@ class MoodEntryCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 9),
-                        Row(
-                          children: [
-                            _ScoreChip(
-                              value: entry.mood,
-                              color: moodColor,
-                              dimColor: moodDim,
-                            ),
-                            // const SizedBox(width: 5),
-                            // _ScoreChip(
-                            //   value: entry.energy,
-                            //   color: energyColor,
-                            //   dimColor: energyDim,
-                            // ),
-                            // const SizedBox(width: 5),
-                            // _ScoreChip(
-                            //   value: entry.boredom,
-                            //   color: boredomColor,
-                            //   dimColor: boredomDim,
-                            // ),
-                          ],
+                        _ScoreChip(
+                          value: entry.mood,
+                          color: moodColor,
+                          dimColor: moodDim,
                         ),
                       ],
                     ),

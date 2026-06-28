@@ -51,12 +51,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mood => 'Mood';
 
   @override
-  String get energy => 'Energy';
-
-  @override
-  String get boredom => 'Motivation';
-
-  @override
   String get descriptionHint => 'How are you feeling?';
 
   @override
@@ -108,7 +102,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsScaleTitle => 'Score Scale';
 
   @override
-  String get settingsScaleSubtitle => 'Range for all three metrics';
+  String get settingsScaleSubtitle => 'Range for mood scores';
 
   @override
   String get settingsScaleOption5 => '0–5';
@@ -167,12 +161,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moodOverTime => 'Mood Over Time';
-
-  @override
-  String get energyOverTime => 'Energy Over Time';
-
-  @override
-  String get boredomOverTime => 'Boredom Over Time';
 
   @override
   String get graphInsights => 'Insights';
@@ -268,4 +256,41 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get tutorialWelcomeTitle => 'Welcome to vibelog';
+
+  @override
+  String get tutorialWelcomeBody =>
+      'A calm space to track your mood and make sense of your thoughts.';
+
+  @override
+  String get tutorialNotesTitle => 'Notes';
+
+  @override
+  String get tutorialNotesBody =>
+      'Log how you feel any time of day. Write as much as you like and rate your Mood';
+
+  @override
+  String get tutorialGraphTitle => 'Graph';
+
+  @override
+  String get tutorialGraphBody =>
+      'Watch your mood unfold over time and spot the patterns behind your swings.';
+
+  @override
+  String get tutorialMindTitle => 'Mind Canvas';
+
+  @override
+  String get tutorialMindBody =>
+      'Give a thought a form, name it, then explore what caused it, its root, and gentle ways to work through it.';
+
+  @override
+  String get tutorialSkip => 'Skip';
+
+  @override
+  String get tutorialNext => 'Next';
+
+  @override
+  String get tutorialDone => 'Get Started';
 }

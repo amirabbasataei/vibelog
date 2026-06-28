@@ -14,8 +14,6 @@
   "delete": "Delete",
   "undo": "Undo",
   "mood": "Mood",
-  "energy": "Energy",
-  "boredom": "Motivation",
   "descriptionHint": "How are you feeling?",
   "dateLabel": "Date",
   "timeLabel": "Time",
@@ -33,7 +31,7 @@
   "settingsLanguageSection": "LANGUAGE",
   "settingsDataSection": "DATA",
   "settingsScaleTitle": "Score Scale",
-  "settingsScaleSubtitle": "Range for all three metrics",
+  "settingsScaleSubtitle": "Range for mood scores",
   "settingsScaleOption5": "0–5",
   "settingsScaleOption10": "0–10",
   "settingsThemeTitle": "Theme",
@@ -53,8 +51,6 @@
   "appVersion": "vibelog v1.0.0",
   "entryDeleted": "Entry deleted",
   "moodOverTime": "Mood Over Time",
-  "energyOverTime": "Energy Over Time",
-  "boredomOverTime": "Boredom Over Time",
   "graphInsights": "Insights",
   "graph7d": "7D",
   "graph30d": "30D",
@@ -87,5 +83,16 @@
     "placeholders": {
       "count": { "type": "int" }
     }
-  }
+  },
+  "tutorialWelcomeTitle": "Welcome to vibelog",
+  "tutorialWelcomeBody": "A calm space to track your mood and make sense of your thoughts.",
+  "tutorialNotesTitle": "Notes",
+  "tutorialNotesBody": "Log how you feel any time of day. Write as much as you like and rate your Mood",
+  "tutorialGraphTitle": "Graph",
+  "tutorialGraphBody": "Watch your mood unfold over time and spot the patterns behind your swings.",
+  "tutorialMindTitle": "Mind Canvas",
+  "tutorialMindBody": "Give a thought a form, name it, then explore what caused it, its root, and gentle ways to work through it.",
+  "tutorialSkip": "Skip",
+  "tutorialNext": "Next",
+  "tutorialDone": "Get Started"
 }

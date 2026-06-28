@@ -182,18 +182,6 @@ abstract class AppLocalizations {
   /// **'Mood'**
   String get mood;
 
-  /// No description provided for @energy.
-  ///
-  /// In en, this message translates to:
-  /// **'Energy'**
-  String get energy;
-
-  /// No description provided for @boredom.
-  ///
-  /// In en, this message translates to:
-  /// **'Motivation'**
-  String get boredom;
-
   /// No description provided for @descriptionHint.
   ///
   /// In en, this message translates to:
@@ -299,7 +287,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsScaleSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Range for all three metrics'**
+  /// **'Range for mood scores'**
   String get settingsScaleSubtitle;
 
   /// No description provided for @settingsScaleOption5.
@@ -415,18 +403,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mood Over Time'**
   String get moodOverTime;
-
-  /// No description provided for @energyOverTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Energy Over Time'**
-  String get energyOverTime;
-
-  /// No description provided for @boredomOverTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Boredom Over Time'**
-  String get boredomOverTime;
 
   /// No description provided for @graphInsights.
   ///
@@ -595,6 +571,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 stroke} other{{count} strokes}}'**
   String mindStrokeCount(int count);
+
+  /// No description provided for @tutorialWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to vibelog'**
+  String get tutorialWelcomeTitle;
+
+  /// No description provided for @tutorialWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm space to track your mood and make sense of your thoughts.'**
+  String get tutorialWelcomeBody;
+
+  /// No description provided for @tutorialNotesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get tutorialNotesTitle;
+
+  /// No description provided for @tutorialNotesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Log how you feel any time of day. Write as much as you like and rate your Mood'**
+  String get tutorialNotesBody;
+
+  /// No description provided for @tutorialGraphTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Graph'**
+  String get tutorialGraphTitle;
+
+  /// No description provided for @tutorialGraphBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch your mood unfold over time and spot the patterns behind your swings.'**
+  String get tutorialGraphBody;
+
+  /// No description provided for @tutorialMindTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mind Canvas'**
+  String get tutorialMindTitle;
+
+  /// No description provided for @tutorialMindBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Give a thought a form, name it, then explore what caused it, its root, and gentle ways to work through it.'**
+  String get tutorialMindBody;
+
+  /// No description provided for @tutorialSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get tutorialSkip;
+
+  /// No description provided for @tutorialNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get tutorialNext;
+
+  /// No description provided for @tutorialDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get tutorialDone;
 }
 
 class _AppLocalizationsDelegate
