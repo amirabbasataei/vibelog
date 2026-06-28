@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../shared/models/drawing_models.dart';
 import '../../../shared/models/thought_detail.dart';
 import '../repository/mind_repository.dart';
-import '../widgets/drawing_painter.dart';
 import 'drawing_state.dart';
 
 class DrawingCubit extends Cubit<DrawingState> {
@@ -135,42 +134,13 @@ class DrawingCubit extends Cubit<DrawingState> {
   void _endEraserStroke(Offset position) {
     final active = state.activeStroke!;
     final finalPoints = [...active.points, position];
-
-    // Find closed shapes that the eraser path passed through.
-    final erasedIds = <String>{};
-    for (final stroke in state.strokes) {
-      if (!stroke.isClosed || stroke.id == null) continue;
-      final shapePath = buildStrokePath(stroke);
-      for (final pt in finalPoints) {
-        if (shapePath.contains(pt)) {
-          erasedIds.add(stroke.id!);
-          break;
-        }
-      }
-    }
-
-    if (erasedIds.isNotEmpty) {
-      // Remove the shapes and their details; no eraser stroke needed.
-      final newStrokes = state.strokes
-          .where((s) => s.id == null || !erasedIds.contains(s.id))
-          .toList();
-      final newDetails = Map<String, ThoughtDetail>.from(state.thoughtDetails)
-        ..removeWhere((key, _) => erasedIds.contains(key));
-      emit(state.copyWith(
-        strokes: newStrokes,
-        thoughtDetails: newDetails,
-        clearActiveStroke: true,
-      ));
-      _saveStrokes(newStrokes);
-    } else {
-      final finalStroke = active.copyWith(points: finalPoints);
-      final newStrokes = [...state.strokes, finalStroke];
-      emit(state.copyWith(
-        strokes: newStrokes,
-        clearActiveStroke: true,
-      ));
-      _saveStrokes(newStrokes);
-    }
+    final finalStroke = active.copyWith(points: finalPoints);
+    final newStrokes = [...state.strokes, finalStroke];
+    emit(state.copyWith(
+      strokes: newStrokes,
+      clearActiveStroke: true,
+    ));
+    _saveStrokes(newStrokes);
   }
 
   void setShapeTitle(String shapeId, String title) {

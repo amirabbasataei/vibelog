@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../cubit/drawing_cubit.dart';
 import '../cubit/drawing_state.dart';
 import 'drawing_painter.dart';
@@ -39,11 +40,18 @@ class _DrawingCanvasState extends State<DrawingCanvas> {
             cubit.onPointerMove(d.localPosition);
           },
           onPanEnd: (_) => cubit.onPointerUp(_lastPosition),
-          // Tap path — tap recognizer wins for a press-and-release.
-          // Creates a single dot at the touch point.
+          // Tap path — navigate into a shape if tapped, otherwise create a dot.
           onTapUp: (d) {
-            cubit.onPointerDown(d.localPosition);
-            cubit.onPointerUp(d.localPosition);
+            final pos = d.localPosition;
+            for (final stroke in state.strokes) {
+              if (!stroke.isClosed || stroke.id == null) continue;
+              if (buildStrokePath(stroke).contains(pos)) {
+                context.push('/mind/thought/${stroke.id}');
+                return;
+              }
+            }
+            cubit.onPointerDown(pos);
+            cubit.onPointerUp(pos);
           },
           child: Container(
             color: bgColor,
