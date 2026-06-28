@@ -41,6 +41,9 @@ class MindRepository {
         resolution: Value(detail.resolution),
       ));
 
+  Future<void> deleteThoughtDetails(List<String> shapeIds) =>
+      _dao.deleteThoughtDetails(shapeIds);
+
   Future<void> clearAll() => _dao.deleteAllMindData();
 
   // --- serialization helpers ---

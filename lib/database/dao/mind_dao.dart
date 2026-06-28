@@ -26,6 +26,9 @@ class MindDao extends DatabaseAccessor<AppDatabase> with _$MindDaoMixin {
   Future<void> upsertThoughtDetail(ThoughtDetailsCompanion row) =>
       into(thoughtDetails).insertOnConflictUpdate(row);
 
+  Future<void> deleteThoughtDetails(List<String> shapeIds) =>
+      (delete(thoughtDetails)..where((t) => t.shapeId.isIn(shapeIds))).go();
+
   Future<void> deleteAllMindData() => transaction(() async {
         await delete(drawingStrokes).go();
         await delete(thoughtDetails).go();

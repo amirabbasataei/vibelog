@@ -5,12 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../shared/models/drawing_models.dart';
 import '../../../shared/models/thought_detail.dart';
 import '../repository/mind_repository.dart';
+import '../widgets/drawing_painter.dart';
 import 'drawing_state.dart';
 
 class DrawingCubit extends Cubit<DrawingState> {
   DrawingCubit(this._repository) : super(const DrawingState());
 
   final MindRepository _repository;
+
+  // Fraction of a shape's area that must be rubbed over before the thought is
+  // removed. Below this, the shape erodes gradually but its data survives.
+  static const double _eraseThreshold = 0.6;
 
   Future<void> loadCanvas() async {
     final (strokes, details) = await _repository.loadCanvas();
@@ -134,13 +139,50 @@ class DrawingCubit extends Cubit<DrawingState> {
   void _endEraserStroke(Offset position) {
     final active = state.activeStroke!;
     final finalPoints = [...active.points, position];
-    final finalStroke = active.copyWith(points: finalPoints);
-    final newStrokes = [...state.strokes, finalStroke];
+    final eraserStroke = active.copyWith(points: finalPoints);
+
+    // A closed shape represents a thought. Rubbing the eraser over it erodes
+    // it gradually (the eraser strokes paint white on top); the thought — and
+    // its saved details — are only removed once it has been *substantially*
+    // erased. This keeps the slow, deliberate "clearing the mind" feel instead
+    // of wiping the whole thought away the instant the eraser grazes it.
+    // Coverage is measured against all eraser strokes, which accumulate and
+    // persist, so erosion can be spread across several separate touches.
+    final eraserStrokes = [
+      ...state.strokes.where((s) => s.isEraser),
+      eraserStroke,
+    ];
+    final erasedShapeIds = <String>{};
+    for (final stroke in state.strokes) {
+      if (!stroke.isClosed || stroke.id == null) continue;
+      if (_shapeErasedFraction(stroke, eraserStrokes) >= _eraseThreshold) {
+        erasedShapeIds.add(stroke.id!);
+      }
+    }
+
+    final remaining = erasedShapeIds.isEmpty
+        ? state.strokes
+        : state.strokes
+            .where((s) => s.id == null || !erasedShapeIds.contains(s.id))
+            .toList();
+    final newStrokes = [...remaining, eraserStroke];
+
+    if (erasedShapeIds.isEmpty) {
+      emit(state.copyWith(strokes: newStrokes, clearActiveStroke: true));
+      _saveStrokes(newStrokes);
+      return;
+    }
+
+    final updatedDetails =
+        Map<String, ThoughtDetail>.from(state.thoughtDetails)
+          ..removeWhere((shapeId, _) => erasedShapeIds.contains(shapeId));
     emit(state.copyWith(
       strokes: newStrokes,
+      thoughtDetails: updatedDetails,
       clearActiveStroke: true,
     ));
     _saveStrokes(newStrokes);
+    _repository.deleteThoughtDetails(erasedShapeIds.toList()).ignore();
   }
 
   void setShapeTitle(String shapeId, String title) {
@@ -184,5 +226,56 @@ class DrawingCubit extends Cubit<DrawingState> {
 
   double _distance(Offset a, Offset b) {
     return sqrt(pow(a.dx - b.dx, 2) + pow(a.dy - b.dy, 2));
+  }
+
+  /// Fraction (0–1) of [shape]'s interior covered by any of [eraserStrokes].
+  /// Samples the shape's area on a grid and counts how many sample points
+  /// fall within an eraser stroke's radius.
+  double _shapeErasedFraction(
+    DrawingStroke shape,
+    List<DrawingStroke> eraserStrokes,
+  ) {
+    final path = buildStrokePath(shape);
+    final bounds = path.getBounds();
+    if (bounds.isEmpty) return 0;
+
+    const step = 12.0;
+    int total = 0;
+    int covered = 0;
+    for (double x = bounds.left; x <= bounds.right; x += step) {
+      for (double y = bounds.top; y <= bounds.bottom; y += step) {
+        final point = Offset(x, y);
+        if (!path.contains(point)) continue;
+        total++;
+        if (_coveredByEraser(point, eraserStrokes)) covered++;
+      }
+    }
+    return total == 0 ? 0 : covered / total;
+  }
+
+  bool _coveredByEraser(Offset point, List<DrawingStroke> eraserStrokes) {
+    for (final eraser in eraserStrokes) {
+      final radius = eraser.strokeWidth / 2;
+      final pts = eraser.points;
+      for (int i = 0; i < pts.length; i++) {
+        if (_distance(point, pts[i]) <= radius) return true;
+        if (i < pts.length - 1 &&
+            _distanceToSegment(point, pts[i], pts[i + 1]) <= radius) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  double _distanceToSegment(Offset p, Offset a, Offset b) {
+    final ab = b - a;
+    final lengthSq = ab.dx * ab.dx + ab.dy * ab.dy;
+    if (lengthSq == 0) return _distance(p, a);
+    final t =
+        (((p.dx - a.dx) * ab.dx + (p.dy - a.dy) * ab.dy) / lengthSq)
+            .clamp(0.0, 1.0);
+    final projection = Offset(a.dx + ab.dx * t, a.dy + ab.dy * t);
+    return _distance(p, projection);
   }
 }
