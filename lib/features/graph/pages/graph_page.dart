@@ -191,17 +191,36 @@ class _ChartsView extends StatelessWidget {
   final List<MoodEntry> entries;
   final double maxY;
 
-  List<FlSpot> _toSpots(int Function(MoodEntry) score) => entries
-      .map((e) => FlSpot(
-            e.timestamp.millisecondsSinceEpoch.toDouble(),
-            score(e).toDouble(),
-          ))
-      .toList();
+  static const _dayMs = 86400000.0;
+
+  Map<DateTime, List<MoodEntry>> _group() {
+    final grouped = <DateTime, List<MoodEntry>>{};
+    for (final e in entries) {
+      final day = DateTime(e.timestamp.year, e.timestamp.month, e.timestamp.day);
+      grouped.putIfAbsent(day, () => []).add(e);
+    }
+    return grouped;
+  }
+
+  List<FlSpot> _toSpots(
+    Map<DateTime, List<MoodEntry>> grouped,
+    List<DateTime> days,
+    int Function(MoodEntry) score,
+  ) {
+    return days.asMap().entries.map((entry) {
+      final values = grouped[entry.value]!;
+      final avg = values.fold(0.0, (s, e) => s + score(e)) / values.length;
+      return FlSpot(entry.key * _dayMs, avg);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final locale = context.watch<SettingsCubit>().state.locale;
+
+    final grouped = _group();
+    final days = grouped.keys.toList()..sort();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
@@ -209,7 +228,8 @@ class _ChartsView extends StatelessWidget {
         height: 260,
         child: ScoreLineChart(
           title: l10n.mood,
-          spots: _toSpots((e) => e.mood),
+          spots: _toSpots(grouped, days, (e) => e.mood),
+          dates: days,
           color: moodColor,
           maxY: maxY,
           locale: locale,

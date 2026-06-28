@@ -11,6 +11,7 @@ class ScoreLineChart extends StatelessWidget {
     super.key,
     required this.title,
     required this.spots,
+    required this.dates,
     required this.color,
     required this.maxY,
     this.locale = 'en',
@@ -18,6 +19,7 @@ class ScoreLineChart extends StatelessWidget {
 
   final String title;
   final List<FlSpot> spots;
+  final List<DateTime> dates;
   final Color color;
   final double maxY;
   final String locale;
@@ -34,7 +36,6 @@ class ScoreLineChart extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: cs.outline, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,10 +104,12 @@ class ScoreLineChart extends StatelessWidget {
   }
 
   LineChartData _buildChartData(ColorScheme cs) {
-    final minX = spots.first.x;
-    final maxX = spots.last.x;
-    final range = max(maxX - minX, 1.0);
-    final xInterval = range / 5;
+    const dayMs = 86400000.0;
+    // x values are 0, dayMs, 2*dayMs, ... so ticks align exactly with spots
+    final minX = 0.0;
+    final maxX = (spots.length - 1) * dayMs;
+    // Show at most ~5 labels
+    final labelEvery = max(1, (spots.length / 5).ceil());
 
     return LineChartData(
       minY: 0,
@@ -132,12 +135,12 @@ class ScoreLineChart extends StatelessWidget {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 30,
-            interval: xInterval,
+            interval: dayMs,
             getTitlesWidget: (value, meta) {
-              if (value == meta.min || value == meta.max) {
-                return const SizedBox.shrink();
-              }
-              final dt = DateTime.fromMillisecondsSinceEpoch(value.toInt());
+              final index = (value / dayMs).round();
+              if (index < 0 || index >= dates.length) return const SizedBox.shrink();
+              if (index % labelEvery != 0) return const SizedBox.shrink();
+              final dt = dates[index];
               final String label;
               if (locale == 'fa') {
                 final j = Jalali.fromDateTime(dt);
@@ -193,7 +196,8 @@ class ScoreLineChart extends StatelessWidget {
         touchTooltipData: LineTouchTooltipData(
           getTooltipColor: (spot) => cs.surfaceContainerHigh,
           getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
-            final dt = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt());
+            final index = (spot.x / dayMs).round().clamp(0, dates.length - 1);
+            final dt = dates[index];
             final String dateLabel;
             if (locale == 'fa') {
               final j = Jalali.fromDateTime(dt);
@@ -202,7 +206,7 @@ class ScoreLineChart extends StatelessWidget {
               dateLabel = DateFormat('MMM d').format(dt);
             }
             return LineTooltipItem(
-              '$dateLabel\n${spot.y.toInt()}',
+              '$dateLabel\n${spot.y.toStringAsFixed(1)}',
               TextStyle(
                 color: color,
                 fontWeight: FontWeight.w600,
