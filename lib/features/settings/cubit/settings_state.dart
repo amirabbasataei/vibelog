@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SettingsState extends Equatable {
   const SettingsState({
-    this.scaleMax = 10,
+    this.scaleMax = 5,
     this.themeMode = ThemeMode.dark,
     this.locale = 'fa',
     this.tutorialSeen = true,

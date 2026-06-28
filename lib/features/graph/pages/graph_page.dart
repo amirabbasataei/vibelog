@@ -201,6 +201,7 @@ class _ChartsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final locale = context.watch<SettingsCubit>().state.locale;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
@@ -211,6 +212,7 @@ class _ChartsView extends StatelessWidget {
           spots: _toSpots((e) => e.mood),
           color: moodColor,
           maxY: maxY,
+          locale: locale,
         ),
       ),
     );

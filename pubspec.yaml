@@ -33,6 +33,7 @@ dependencies:
 
   # Date/time
   intl: ^0.20.2
+  persian_datetime_picker: ^3.2.0
 
   # Settings persistence
   shared_preferences: ^2.3.0

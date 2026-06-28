@@ -9,7 +9,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     emit(SettingsState(
-      scaleMax: prefs.getInt('scale_max') ?? 10,
+      scaleMax: prefs.getInt('scale_max') ?? 5,
       themeMode: _parseTheme(prefs.getString('theme_mode') ?? 'system'),
       locale: prefs.getString('locale_code') ?? 'fa',
       tutorialSeen: prefs.getBool('tutorial_seen') ?? false,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 import '../../../core/di/injection.dart';
 import '../../../core/theme/app_theme.dart';
@@ -35,7 +36,7 @@ class _AddEditEntryView extends StatefulWidget {
 class _AddEditEntryViewState extends State<_AddEditEntryView> {
   late DateTime _selectedDateTime;
   final _descController = TextEditingController();
-  int _mood = 5;
+  int _mood = 3;
   bool _isLoading = false;
   bool _isSaving = false;
 
@@ -72,13 +73,28 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
   }
 
   Future<void> _pickDateTime() async {
-    final date = await showDatePicker(
-      context: context,
-      initialDate: _selectedDateTime,
-      firstDate: DateTime(2020),
-      lastDate: DateTime.now().add(const Duration(days: 1)),
-    );
-    if (!mounted || date == null) return;
+    final locale = context.read<SettingsCubit>().state.locale;
+
+    DateTime? pickedDate;
+    if (locale == 'fa') {
+      final jalali = await showPersianDatePicker(
+        context: context,
+        initialDate: Jalali.fromDateTime(_selectedDateTime),
+        firstDate: Jalali(1399, 1, 1),
+        lastDate: Jalali.fromDateTime(
+            DateTime.now().add(const Duration(days: 1))),
+      );
+      if (!mounted || jalali == null) return;
+      pickedDate = jalali.toDateTime();
+    } else {
+      pickedDate = await showDatePicker(
+        context: context,
+        initialDate: _selectedDateTime,
+        firstDate: DateTime(2020),
+        lastDate: DateTime.now().add(const Duration(days: 1)),
+      );
+      if (!mounted || pickedDate == null) return;
+    }
 
     final time = await showTimePicker(
       context: context,
@@ -88,9 +104,9 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
 
     setState(() {
       _selectedDateTime = DateTime(
-        date.year,
-        date.month,
-        date.day,
+        pickedDate!.year,
+        pickedDate.month,
+        pickedDate.day,
         time.hour,
         time.minute,
       );
@@ -197,8 +213,15 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
 
   Widget _buildDateTimeCard(
       BuildContext context, AppLocalizations l10n, ColorScheme cs) {
-    final dateStr =
-        DateFormat('EEE, d MMM · HH:mm').format(_selectedDateTime);
+    final locale = context.read<SettingsCubit>().state.locale;
+    final String dateStr;
+    if (locale == 'fa') {
+      final j = Jalali.fromDateTime(_selectedDateTime);
+      dateStr =
+          '${j.formatter.wN}، ${j.day} ${j.formatter.mN} · ${DateFormat('HH:mm').format(_selectedDateTime)}';
+    } else {
+      dateStr = DateFormat('EEE, d MMM · HH:mm').format(_selectedDateTime);
+    }
     return GestureDetector(
       onTap: _pickDateTime,
       child: Container(

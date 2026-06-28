@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 import '../../../core/di/injection.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../features/settings/cubit/settings_cubit.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/mood_entry.dart';
 import '../../../shared/widgets/empty_state_widget.dart';
@@ -114,7 +116,8 @@ class _LoadedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final groups = _groupByDate(entries, l10n);
+    final locale = context.watch<SettingsCubit>().state.locale;
+    final groups = _groupByDate(entries, l10n, locale);
     final streak = _computeStreak(entries);
     final todayMoodAvg = _todayMoodAvg(entries);
 
@@ -136,11 +139,12 @@ class _LoadedView extends StatelessWidget {
   }
 
   List<(String, List<MoodEntry>)> _groupByDate(
-      List<MoodEntry> entries, AppLocalizations l10n) {
+      List<MoodEntry> entries, AppLocalizations l10n, String locale) {
     final today = DateUtils.dateOnly(DateTime.now());
     final yesterday = today.subtract(const Duration(days: 1));
     final groups = <String, List<MoodEntry>>{};
     final order = <String>[];
+    final isPersian = locale == 'fa';
 
     for (final e in entries) {
       final day = DateUtils.dateOnly(e.timestamp);
@@ -149,6 +153,9 @@ class _LoadedView extends StatelessWidget {
         label = l10n.today.toUpperCase();
       } else if (day == yesterday) {
         label = l10n.yesterday.toUpperCase();
+      } else if (isPersian) {
+        final j = Jalali.fromDateTime(day);
+        label = '${j.day} ${j.formatter.mN} ${j.formatter.yyyy}';
       } else {
         label = DateFormat('MMMM d, y').format(day).toUpperCase();
       }

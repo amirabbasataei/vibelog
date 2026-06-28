@@ -107,8 +107,8 @@ class MoodEntryCard extends StatelessWidget {
   }
 
   String _moodEmoji(int mood) {
-    if (mood >= 8) return '😊';
-    if (mood >= 5) return '😐';
+    if (mood >= 4) return '😊';
+    if (mood >= 3) return '😐';
     return '😔';
   }
 }

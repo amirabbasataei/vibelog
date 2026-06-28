@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 import '../../../l10n/app_localizations.dart';
 
@@ -12,12 +13,14 @@ class ScoreLineChart extends StatelessWidget {
     required this.spots,
     required this.color,
     required this.maxY,
+    this.locale = 'en',
   });
 
   final String title;
   final List<FlSpot> spots;
   final Color color;
   final double maxY;
+  final String locale;
 
   double get _avg =>
       spots.isEmpty ? 0.0 : spots.fold(0.0, (s, sp) => s + sp.y) / spots.length;
@@ -135,10 +138,17 @@ class ScoreLineChart extends StatelessWidget {
                 return const SizedBox.shrink();
               }
               final dt = DateTime.fromMillisecondsSinceEpoch(value.toInt());
+              final String label;
+              if (locale == 'fa') {
+                final j = Jalali.fromDateTime(dt);
+                label = '${j.day} ${j.formatter.mN}';
+              } else {
+                label = DateFormat('MMM d', 'en').format(dt);
+              }
               return Padding(
                 padding: const EdgeInsets.only(top: 6),
                 child: Text(
-                  DateFormat('MMM d', 'en').format(dt),
+                  label,
                   style: TextStyle(
                     color: cs.onSurfaceVariant,
                     fontSize: 10,
@@ -184,8 +194,15 @@ class ScoreLineChart extends StatelessWidget {
           getTooltipColor: (spot) => cs.surfaceContainerHigh,
           getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
             final dt = DateTime.fromMillisecondsSinceEpoch(spot.x.toInt());
+            final String dateLabel;
+            if (locale == 'fa') {
+              final j = Jalali.fromDateTime(dt);
+              dateLabel = '${j.day} ${j.formatter.mN}';
+            } else {
+              dateLabel = DateFormat('MMM d').format(dt);
+            }
             return LineTooltipItem(
-              '${DateFormat('MMM d').format(dt)}\n${spot.y.toInt()}',
+              '$dateLabel\n${spot.y.toInt()}',
               TextStyle(
                 color: color,
                 fontWeight: FontWeight.w600,
