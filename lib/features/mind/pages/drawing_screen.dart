@@ -33,10 +33,10 @@ class DrawingScreen extends StatelessWidget {
             children: [
               const ToolBar(),
               _StatusBar(state: state),
-              Expanded(
+              const Expanded(
                 child: Stack(
                   children: [
-                    const DrawingCanvas(),
+                    DrawingCanvas(),
                   ],
                 ),
               ),

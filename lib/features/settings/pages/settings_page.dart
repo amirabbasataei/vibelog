@@ -258,40 +258,6 @@ class _ThemeSegmentedButton extends StatelessWidget {
   }
 }
 
-class _ScaleSegmentedButton extends StatelessWidget {
-  const _ScaleSegmentedButton({
-    required this.current,
-    required this.onChanged,
-    required this.l10n,
-  });
-  final int current;
-  final ValueChanged<int> onChanged;
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    return SegmentedButton<int>(
-      style: SegmentedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-        visualDensity: VisualDensity.compact,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      ),
-      segments: [
-        ButtonSegment(
-          value: 5,
-          label: Text(l10n.settingsScaleOption5, style: const TextStyle(fontSize: 12)),
-        ),
-        ButtonSegment(
-          value: 10,
-          label: Text(l10n.settingsScaleOption10, style: const TextStyle(fontSize: 12)),
-        ),
-      ],
-      selected: {current},
-      onSelectionChanged: (v) => onChanged(v.first),
-    );
-  }
-}
-
 class _LanguageTile extends StatelessWidget {
   const _LanguageTile({
     required this.current,
