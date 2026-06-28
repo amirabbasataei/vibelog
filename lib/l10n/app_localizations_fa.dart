@@ -269,7 +269,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get tutorialNotesBody =>
-      'هر ساعت از روز حالت را ثبت کن. هرچقدر خواستی بنویس و به خلق‌وخو، انرژی و انگیزه‌ات امتیاز بده.';
+      'هر ساعت از روز حالت را ثبت کن. هرچقدر خواستی بنویس و به خلق‌وخوی خودت امتیاز بده.';
 
   @override
   String get tutorialGraphTitle => 'نمودار';

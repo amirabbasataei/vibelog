@@ -5,7 +5,7 @@ class SettingsState extends Equatable {
   const SettingsState({
     this.scaleMax = 10,
     this.themeMode = ThemeMode.dark,
-    this.locale = 'en',
+    this.locale = 'fa',
     this.tutorialSeen = true,
   });
 

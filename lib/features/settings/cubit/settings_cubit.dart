@@ -11,7 +11,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(SettingsState(
       scaleMax: prefs.getInt('scale_max') ?? 10,
       themeMode: _parseTheme(prefs.getString('theme_mode') ?? 'system'),
-      locale: prefs.getString('locale_code') ?? 'en',
+      locale: prefs.getString('locale_code') ?? 'fa',
       tutorialSeen: prefs.getBool('tutorial_seen') ?? false,
     ));
   }
