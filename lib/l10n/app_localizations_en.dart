@@ -230,6 +230,27 @@ class AppLocalizationsEn extends AppLocalizations {
       'vibelog is open source — we\'d love a star!';
 
   @override
+  String get mindToolDraw => 'Draw';
+
+  @override
+  String get mindToolErase => 'Erase';
+
+  @override
+  String get mindToolSize => 'Size';
+
+  @override
+  String get mindClearTooltip => 'Clear all';
+
+  @override
+  String get mindClearTitle => 'Clear canvas';
+
+  @override
+  String get mindClearBody => 'Remove all strokes?';
+
+  @override
+  String get mindClearConfirm => 'Clear';
+
+  @override
   String get mindStatusDrawHint =>
       'Tap & drag to draw • Return near the start point to close the shape';
 

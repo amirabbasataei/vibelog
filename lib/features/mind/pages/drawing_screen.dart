@@ -15,7 +15,7 @@ class DrawingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocConsumer<DrawingCubit, DrawingState>(
         listenWhen: (prev, curr) =>
             curr.pendingTitleShapeId != null &&
@@ -93,22 +93,22 @@ class _StatusBar extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
       color: isDrawing
-          ? const Color(0xFF457B9D).withValues(alpha: 0.1)
-          : const Color(0xFFF0F0F0),
+          ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
+          : Theme.of(context).colorScheme.surfaceContainerLow,
       child: Row(
         children: [
           Icon(
             isPencil ? Icons.edit : Icons.auto_fix_normal,
             size: 13,
-            color: const Color(0xFF457B9D),
+            color: Theme.of(context).colorScheme.primary,
           ),
           const SizedBox(width: 6),
           Expanded(
             child: Text(
               message,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 11.5,
-                color: Color(0xFF555577),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -116,9 +116,9 @@ class _StatusBar extends StatelessWidget {
           if (state.strokes.isNotEmpty)
             Text(
               l10n.mindStrokeCount(state.strokes.length),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 11,
-                color: Color(0xFF888899),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
         ],

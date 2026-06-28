@@ -536,6 +536,48 @@ abstract class AppLocalizations {
   /// **'vibelog is open source — we\'d love a star!'**
   String get settingsGitHubSubtitle;
 
+  /// No description provided for @mindToolDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw'**
+  String get mindToolDraw;
+
+  /// No description provided for @mindToolErase.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase'**
+  String get mindToolErase;
+
+  /// No description provided for @mindToolSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get mindToolSize;
+
+  /// No description provided for @mindClearTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get mindClearTooltip;
+
+  /// No description provided for @mindClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear canvas'**
+  String get mindClearTitle;
+
+  /// No description provided for @mindClearBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all strokes?'**
+  String get mindClearBody;
+
+  /// No description provided for @mindClearConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get mindClearConfirm;
+
   /// No description provided for @mindStatusDrawHint.
   ///
   /// In en, this message translates to:

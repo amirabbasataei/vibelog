@@ -106,7 +106,7 @@ class ScoreLineChart extends StatelessWidget {
   LineChartData _buildChartData(ColorScheme cs) {
     const dayMs = 86400000.0;
     // x values are 0, dayMs, 2*dayMs, ... so ticks align exactly with spots
-    final minX = 0.0;
+    const minX = 0.0;
     final maxX = (spots.length - 1) * dayMs;
     // Show at most ~5 labels
     final labelEvery = max(1, (spots.length / 5).ceil());

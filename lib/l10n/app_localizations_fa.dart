@@ -231,6 +231,27 @@ class AppLocalizationsFa extends AppLocalizations {
       'وایب‌لاگ متن‌بازه — خوشحال می‌شم اگه ستاره بدی!';
 
   @override
+  String get mindToolDraw => 'رسم';
+
+  @override
+  String get mindToolErase => 'پاک کردن';
+
+  @override
+  String get mindToolSize => 'اندازه';
+
+  @override
+  String get mindClearTooltip => 'پاک کردن همه';
+
+  @override
+  String get mindClearTitle => 'پاک کردن بوم';
+
+  @override
+  String get mindClearBody => 'همه خطوط حذف شه؟';
+
+  @override
+  String get mindClearConfirm => 'پاک کردن';
+
+  @override
   String get mindStatusDrawHint =>
       'برای رسم، انگشتت رو بکش • نزدیک نقطه شروع برگرد تا شکل بسته شه';
 
