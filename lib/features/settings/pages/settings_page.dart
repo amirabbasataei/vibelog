@@ -83,18 +83,18 @@ class SettingsPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      Center(
-                        child: Text(
-                          l10n.appVersion,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withValues(alpha: 0.4),
-                                fontStyle: FontStyle.italic,
-                              ),
-                        ),
-                      ),
+                      // Center(
+                      //   child: Text(
+                      //     l10n.appVersion,
+                      //     style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      //           color: Theme.of(context)
+                      //               .colorScheme
+                      //               .onSurface
+                      //               .withValues(alpha: 0.4),
+                      //           fontStyle: FontStyle.italic,
+                      //         ),
+                      //   ),
+                      // ),
                       const SizedBox(height: 24),
                     ]),
                   ),

@@ -131,18 +131,18 @@ class _ThoughtTitleChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.bubble_chart_outlined, color: color, size: 20),
+          Icon(Icons.bubble_chart_outlined, color: Theme.of(context).colorScheme.onSurface, size: 20),
           const SizedBox(width: 8),
           Flexible(
             child: Text(
               title,
               style: TextStyle(
-                color: color,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
               ),

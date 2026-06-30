@@ -40,7 +40,6 @@ dependencies:
 
   # URL launching
   url_launcher: ^6.3.0
-  showcaseview: ^4.0.1
 
 dev_dependencies:
   flutter_test:

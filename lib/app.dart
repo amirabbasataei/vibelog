@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:vibelog/l10n/app_localizations.dart';
 import 'core/di/injection.dart';
 import 'core/router/app_router.dart';
@@ -22,15 +23,19 @@ class VibelogApp extends StatelessWidget {
             title: 'vibelog',
             localizationsDelegates: const [
               AppLocalizations.delegate,
+              PersianMaterialLocalizations.delegate,
+              PersianCupertinoLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
               Locale('en'),
-              Locale('fa'),
+              Locale('fa', 'IR'),
             ],
-            locale: Locale(settings.locale),
+            locale: settings.locale == 'fa'
+                ? const Locale('fa', 'IR')
+                : Locale(settings.locale),
             theme: settings.locale == 'fa'
                 ? lightTheme.copyWith(
                     textTheme: lightTheme.textTheme.apply(fontFamily: 'IRANSansXFaNum'),

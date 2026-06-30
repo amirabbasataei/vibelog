@@ -73,10 +73,10 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
   }
 
   Future<void> _pickDateTime() async {
-    final locale = context.read<SettingsCubit>().state.locale;
+    final langCode = Localizations.localeOf(context).languageCode;
 
     DateTime? pickedDate;
-    if (locale == 'fa') {
+    if (langCode == 'fa') {
       final jalali = await showPersianDatePicker(
         context: context,
         initialDate: Jalali.fromDateTime(_selectedDateTime),
@@ -213,9 +213,9 @@ class _AddEditEntryViewState extends State<_AddEditEntryView> {
 
   Widget _buildDateTimeCard(
       BuildContext context, AppLocalizations l10n, ColorScheme cs) {
-    final locale = context.read<SettingsCubit>().state.locale;
+    final langCode = Localizations.localeOf(context).languageCode;
     final String dateStr;
-    if (locale == 'fa') {
+    if (langCode == 'fa') {
       final j = Jalali.fromDateTime(_selectedDateTime);
       dateStr =
           '${j.formatter.wN}، ${j.day} ${j.formatter.mN} · ${DateFormat('HH:mm').format(_selectedDateTime)}';
